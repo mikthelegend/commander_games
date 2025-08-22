@@ -76,7 +76,7 @@ def games_with(deck_name):
     return games
 
 def expected_outcome(your_elo, their_elo):
-    return 1 / (1 + 10 ** (abs(their_elo - your_elo) / 400))
+    return 1 / (1 + 10 ** ((their_elo - your_elo) / 400))
 
 # Calculates the ELO of each deck based on the games played, updating their ELO ratings accordingly.
 def calculate_elos():
