@@ -149,7 +149,7 @@ def update_spreadsheet():
     elo_worksheet.clear()
 
     sheet_data = []
-    sheet_data.append(["Deck Name", "Elo", "Last Updated:", f"{date.today().strftime('%d/%m/%Y')}", "Update:", "FALSE"])
+    sheet_data.append(["Deck Name", "Elo", "Last Updated:", f"{date.today().strftime('%d/%m/%Y')}"])
 
     for deck in all_decks:
         sheet_data.append([deck["deck_name"], deck["elos"][-1]["elo"] if deck["elos"] else 1000])
