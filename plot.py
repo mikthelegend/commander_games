@@ -3,7 +3,7 @@ import plotly.express as px
 import pandas as pd
 import main
 
-def get_elo_history_Data():
+def get_elo_history_data():
     data = {"Date": [], "Elo": [], "Deck": []}
     for deck in main.all_decks:
         # Remove duplicate dates for the same deck, taking only the latest Elo for that date
@@ -20,27 +20,8 @@ def get_elo_history_Data():
     df.sort_values(by=["Date"], inplace=True)
     return df
 
-# Manual Plot
-df = get_elo_history_Data()
-fig = px.line(df, x="Date", y="Elo", color="Deck", title='Deck ELO Over Time', markers=True, line_shape='hv')
-fig.show()
-
-# ------------[ Dash app ]------------
-
-# app = Dash(__name__)
-
-# app.layout = html.Div([
-#     html.H4('Deck ELO Over Time'),
-#     dcc.Graph(id="graph"),
-# ])
-
-# @app.callback(
-#     Output("graph", "figure"),
-#     Input("graph", "id")  # Dummy input to trigger the callback once
-# )
-# def update_line_chart():
-#     df = get_elo_history_Data()
-#     fig = px.line(df, x="Date", y="Elo", color="Deck", title='Deck ELO Over Time', markers=True, line_shape='hv')
-#     return fig
-
-# app.run(host='0.0.0.0', port="5000")
+if __name__ == "__main__":
+    # Manual Plot
+    df = get_elo_history_data()
+    fig = px.line(df, x="Date", y="Elo", color="Deck", title='Deck ELO Over Time', markers=True, line_shape='hv')
+    fig.show()
