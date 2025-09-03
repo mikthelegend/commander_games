@@ -118,6 +118,8 @@ def calculate_elos():
         #Update the winning deck's ELO
         winning_deck.add_elo(winning_deck.get_current_elo() + winner_elo_change, game["date"])
 
+calculate_elos()
+
 def update_spreadsheet():
     print("Updating spreadsheet...")
 

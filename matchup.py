@@ -1,7 +1,5 @@
 import main
 
-main.calculate_elos()
-
 selected_deck = main.user_select_deck("Enter the name of the deck you would like to analyze matchups for:\n")
 
 matchups = []
