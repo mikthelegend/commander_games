@@ -30,7 +30,6 @@ def redirect_to_plot():
 # ------------[ Dash app ]------------
 
 dash_app.layout = html.Div([
-    html.H4('Deck ELO Over Time'),
     dcc.Graph(
         id="graph", 
         figure=px.line(
