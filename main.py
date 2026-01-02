@@ -3,6 +3,7 @@ from datetime import date
 from google.oauth2.service_account import Credentials
 import re
 from deck import Deck
+from game import Game
 
 scopes = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -56,14 +57,7 @@ def get_all_games():
     print("Fetching all games...")
     games = []
     for row in sheet.worksheet("Games").get_all_values()[1:]:
-        game = {
-            "game_id": row[0],
-            "winning_player": row[1],
-            "losing_players": extract_decks_from_string(row[2]),
-            "winning_deck": row[3],
-            "losing_decks": extract_decks_from_string(row[4]),
-            "date": row[5],
-        }
+        game = Game(row[0], row[1], extract_decks_from_string(row[2]), row[3], extract_decks_from_string(row[4]), row[5], row[6])
         games.append(game)
     return games
 
@@ -74,17 +68,17 @@ def calculate_elos():
     print("Calculating ELOs...")
     for game in all_games:
         # Obtain Winning and Losing Decks
-        winning_deck = get_deck_by_name(game["winning_deck"])
+        winning_deck = get_deck_by_name(game.get_winning_deck())
 
         if winning_deck is None:
-            print(f"Deck {game['winning_deck']} not found in all_decks")
+            print(f"Deck {game.get_winning_deck()} not found in all_decks")
             return
         
         if winning_deck.elo_history == []:
-            winning_deck.add_elo(1000, game["date"])
+            winning_deck.add_elo(1000, game.get_date())
 
         losing_decks = []
-        for losing_deck_name in game["losing_decks"]:
+        for losing_deck_name in game.get_losing_decks():
             losing_deck = get_deck_by_name(losing_deck_name)
 
             if losing_deck is None:
@@ -92,7 +86,7 @@ def calculate_elos():
                 return
             
             if losing_deck.elo_history == []:
-                losing_deck.add_elo(1000, game["date"])
+                losing_deck.add_elo(1000, game.get_date())
             
             losing_decks.append(losing_deck)
 
@@ -113,10 +107,10 @@ def calculate_elos():
                 loser_elo_change += losing_deck.k * (0.5 - losing_deck.odds_of_winning_against(other_losing_deck))
             
             # Update the losing deck's ELO
-            losing_deck.add_elo(losing_deck.get_current_elo() + loser_elo_change, game["date"])
+            losing_deck.add_elo(losing_deck.get_current_elo() + loser_elo_change, game.get_date())
             
         #Update the winning deck's ELO
-        winning_deck.add_elo(winning_deck.get_current_elo() + winner_elo_change, game["date"])
+        winning_deck.add_elo(winning_deck.get_current_elo() + winner_elo_change, game.get_date())
 
 calculate_elos()
 
