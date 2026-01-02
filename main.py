@@ -139,7 +139,7 @@ def update_spreadsheet():
     for deck in all_decks:
         for entry in deck.elo_history:
             if len(sheet_data) > 1 and entry["date"] == sheet_data[-1][0] and deck.name == sheet_data[0][deck_count + 1]:
-                sheet_data[-1][deck_count + 1] = entry["elo"]
+                sheet_data[-1][-1] = entry["elo"]
                 continue
             sheet_data.append([entry["date"]] + ([""] * deck_count) + [entry["elo"]])
         deck_count += 1
