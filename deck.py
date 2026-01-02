@@ -1,3 +1,5 @@
+import json
+
 class Deck:
     def __init__(self, name, k=32):
         self.name = name
@@ -6,6 +8,9 @@ class Deck:
 
     def __repr__(self):
         return f"Deck(name={self.name}, k={self.k}, elo_history={self.elo_history})"
+    
+    def json(self):
+        return {"name": self.name, "k": self.k, "elo_history": self.elo_history}
     
     def add_elo(self, elo, date):
         self.elo_history.append({"elo": elo, "date": date})
