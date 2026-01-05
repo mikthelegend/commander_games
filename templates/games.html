@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Games{% endblock %}
+
+{% block content %}
+<div class="games-page">
+    <h1>Games</h1>
+
+    <table id="games_table" class="games-table" aria-describedby="games-caption">
+        <thead>
+            <tr>
+                <th scope="col">Game ID</th>
+                <th scope="col">Winning Player</th>
+                <th scope="col">Losing Players</th>
+                <th scope="col">Winning Deck</th>
+                <th scope="col">Losing Decks</th>
+                <th scope="col">Date</th>
+                <th scope="col">Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be inserted here by static/games.js -->
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='games.js') }}"></script>
+{% endblock %}

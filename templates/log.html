@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Log New Game{% endblock %}
+
+{% block content %}
+    <h1>Log New Game</h1>
+
+    <form method="post" action="/games/log">
+        <label>
+            Winning player
+            <input type="text" name="winning_player" placeholder="Player name" required />
+        </label>
+
+        <label>
+            Winning deck
+            <input type="text" name="winning_deck" placeholder="Deck name" required />
+        </label>
+
+        <fieldset>
+            <legend>Losing players & decks</legend>
+
+            <div id="losers">
+                <div class="loser-row">
+                    <div>
+                        <label>
+                            Losing player
+                            <input type="text" name="losing_players[]" placeholder="Player name" required />
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Losing deck
+                            <input type="text" name="losing_decks[]" placeholder="Deck name" required />
+                        </label>
+                    </div>
+                    <div>
+                        <button type="button" class="remove-loser" title="Remove">✕</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button type="button" id="add-loser">Add losing player/deck</button>
+                <span class="muted">Each losing player should have a matching losing deck field.</span>
+            </div>
+        </fieldset>
+
+        <label>
+            Date
+            <input type="date" name="date" />
+        </label>
+
+        <label>
+            Notes
+            <textarea name="notes" rows="5" placeholder="Optional notes about the game"></textarea>
+        </label>
+
+        <div>
+            <button type="submit">Save game</button>
+        </div>
+    </form>
+
+    <script>
+        (function () {
+            const losersContainer = document.getElementById('losers');
+            const addBtn = document.getElementById('add-loser');
+
+            function makeLoserRow() {
+                const row = document.createElement('div');
+                row.className = 'loser-row';
+
+                const playerWrap = document.createElement('div');
+                playerWrap.innerHTML = '<label>Losing player<input type="text" name="losing_players[]" placeholder="Player name" required /></label>';
+
+                const deckWrap = document.createElement('div');
+                deckWrap.innerHTML = '<label>Losing deck<input type="text" name="losing_decks[]" placeholder="Deck name" required /></label>';
+
+                const btnWrap = document.createElement('div');
+                const removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.className = 'remove-loser';
+                removeBtn.title = 'Remove';
+                removeBtn.textContent = '✕';
+                removeBtn.addEventListener('click', () => {
+                    row.remove();
+                });
+
+                btnWrap.appendChild(removeBtn);
+
+                row.appendChild(playerWrap);
+                row.appendChild(deckWrap);
+                row.appendChild(btnWrap);
+
+                return row;
+            }
+
+            // Attach remove functionality to existing remove buttons
+            document.querySelectorAll('.remove-loser').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const row = e.target.closest('.loser-row');
+                    if (row) row.remove();
+                });
+            });
+
+            addBtn.addEventListener('click', () => {
+                losersContainer.appendChild(makeLoserRow());
+            });
+        })();
+    </script>
+{% endblock %}
