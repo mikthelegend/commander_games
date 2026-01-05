@@ -13,7 +13,7 @@ class Game:
     def __repr__(self):
         return (f"Game(game_id={self.game_id}, winning_player={self.winning_player}, "
                 f"losing_players={self.losing_players}, winning_deck={self.winning_deck}, "
-                f"losing_decks={self.losing_decks}, date={self.date})")
+                f"losing_decks={self.losing_decks}, date={self.date}, notes={self.notes})")
     
     def json(self):
         return {

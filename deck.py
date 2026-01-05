@@ -1,10 +1,10 @@
 import json
 
 class Deck:
-    def __init__(self, name, k=32):
+    def __init__(self, name, k=32, elo_history=[]):
         self.name = name
         self.k = k
-        self.elo_history = []  # List of dictionaries with 'elo' and 'date' keys
+        self.elo_history = elo_history  # List of dictionaries with 'elo' and 'date' keys
 
     def __repr__(self):
         return f"Deck(name={self.name}, k={self.k}, elo_history={self.elo_history})"
