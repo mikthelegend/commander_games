@@ -5,12 +5,21 @@
 {% block content %}
 <main role="main" class="container">
     <header>
-        <h1>Welcome</h1>
-        <p>Replace this with your index page content.</p>
+        <h1>Welcome to Commander Games!</h1>
+        <p>This site collates game data for our Commander (Magic: The Gathering) games and presents it in an easy-to-read format, along with visualisations and interactive data analysis features.</p>
     </header>
+
+    <div>
+        <h2>Random Game</h2>
+        <p>Check out this randomly selected game:</p>
+        <button id="new_random_game_btn">Show Another Random Game</button>
+        <div id="random_game" class="game-card">
+            <!-- Random game details will be populated here by static/index.js -->
+        </div>
+    </div>
 </main>
 {% endblock %}
 
 {% block scripts %}
-{# Page-specific scripts (optional) #}
+<script src="{{ url_for('static', filename='index.js') }}"></script>
 {% endblock %}
