@@ -74,8 +74,23 @@ th {
   background: rgba(255,255,255,0.08);
 }
 
+#games_list {
+  display: none;
+}
+
+.game-card {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
 /* small screens */
-@media (max-width: 640px) {
+@media (max-width: 800px) {
   .top-nav { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
   .nav-list { flex-wrap: wrap; gap: 0.5rem; }
+  #games_list { display: block; }
+  #games_table { display: none; }
 }

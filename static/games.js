@@ -5,6 +5,7 @@ fetch('/get_all_games')
     .then(data => {
         const table = document.getElementById("games_table");
         data.sort((a, b) => b.game_id - a.game_id).forEach(game => {
+            // Populate table rows
             const row = table.insertRow();
             const cell1 = row.insertCell(0);
             const cell2 = row.insertCell(1);
@@ -20,5 +21,16 @@ fetch('/get_all_games')
             cell5.innerHTML = game.losing_decks.join(", ");
             cell6.innerHTML = game.date;
             cell7.innerHTML = game.notes;
+
+            // Populate game list for small screens.
+            const gameList = document.getElementById("games_list");
+            const listItem = document.createElement("div");
+            listItem.className = "game-card";
+            listItem.innerHTML = `<strong>Game ID:</strong> ${game.game_id} <strong>Date:</strong> ${game.date} <br>
+                                  <strong>Winner:</strong> ${game.winning_player} <br>(${game.winning_deck}) <br>
+                                  <strong>Losers:</strong> ${game.losing_players.join(", ")} <br>
+                                  <strong>Losing Decks:</strong> <br>${game.losing_decks.join("<br>")} <br>
+                                  <strong>Notes:</strong> <br>${game.notes}`;
+            gameList.appendChild(listItem);
         });
     });
