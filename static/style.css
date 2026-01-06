@@ -34,10 +34,12 @@ th {
 }
 
 .site-header {
-  background: #0b3d91;
-  color: #fff;
+  background: #ffdcab;
+  color: #000;
   padding: 0.5rem 1rem;
+  border-radius: 8px;
 }
+
 .top-nav {
   display: flex;
   align-items: center;
@@ -45,12 +47,14 @@ th {
   max-width: 1100px;
   margin: 0 auto;
 }
+
 .top-nav .logo {
-  color: #fff;
+  color: #000;
   text-decoration: none;
   font-weight: 700;
   font-size: 1.1rem;
 }
+
 .nav-list {
   list-style: none;
   margin: 0;
@@ -58,12 +62,14 @@ th {
   display: flex;
   gap: 1rem;
 }
+
 .nav-list a {
-  color: #fff;
+  color: #000;
   text-decoration: none;
   padding: 0.4rem 0.6rem;
   border-radius: 4px;
 }
+
 .nav-list a:hover {
   background: rgba(255,255,255,0.08);
 }
