@@ -1,10 +1,16 @@
 import json
+import main
 from game import Game
 from deck import Deck
 
-def save_data(data):
+def save_data():
     with open('data.json', 'w') as f:
+        data = {
+            "decks": [deck.json() for deck in main.all_decks],
+            "games": [game.json() for game in main.all_games]
+        }
         json.dump(data, f, indent=4)
+        print("Data saved to data.json")
 
 def load_data():
     try:

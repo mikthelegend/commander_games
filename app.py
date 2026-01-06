@@ -2,16 +2,22 @@ from flask import Flask, render_template, request, send_from_directory
 from dash import Dash, dcc, html
 import plotly.express as px
 import main
-from plot import get_elo_history_data
+import util
 import stats
+from plot import get_elo_history_data
 import os
 
 flask_app = Flask(__name__)
 dash_app = Dash(__name__, server=flask_app, url_base_pathname='/plot/')
 
+# -------- Web Routes --------
 @flask_app.route("/")
 def index():
     return render_template('index.html')
+
+@flask_app.route("/games")
+def games():
+    return render_template('games.html')
 
 @flask_app.route("/stats")
 def stats():
@@ -20,13 +26,11 @@ def stats():
     main.calculate_elos()
     return render_template('stats.html')
 
-@flask_app.route("/games")
-def games():
-    return render_template('games.html')
-
 @flask_app.route("/log")
 def log():
     return render_template('log.html')
+
+# -------- API Routes --------
 
 @flask_app.route("/health")
 def health_check():
@@ -38,6 +42,7 @@ def perform_elo_update():
     main.all_games = main.get_all_games()
     main.calculate_elos()
     main.update_spreadsheet()
+    util.save_data()
     return "ELOs updated successfully", 200
 
 @flask_app.route("/matchup", methods=['GET'])
