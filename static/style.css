@@ -74,8 +74,15 @@ th {
   background: rgba(255,255,255,0.08);
 }
 
+#games_table {
+  width: 100%;
+}
+
 #games_list {
   display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .game-card {
@@ -85,6 +92,13 @@ th {
   padding: 1rem;
   margin-bottom: 1rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 250px;
+}
+
+#random_game_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #add_new_game_card {
@@ -129,6 +143,6 @@ textarea {
 @media (max-width: 800px) {
   .top-nav { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
   .nav-list { flex-wrap: wrap; gap: 0.5rem; }
-  #games_list { display: block; }
+  #games_list { display: flex; }
   #games_table { display: none; }
 }
