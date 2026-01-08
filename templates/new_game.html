@@ -156,6 +156,7 @@
                 console.log('Success:', result);
                 document.getElementById('add_new_game_card').style.display = 'none';
                 formElement.reset();
+                location.reload();
             })
             .catch(error => {
                 console.error('Error:', error);

@@ -34,3 +34,9 @@ fetch('/get_all_games')
             gameList.appendChild(listItem);
         });
     });
+
+document.getElementById("refresh_games_button").addEventListener("click", () => {
+    fetch('/update').then(() => {
+        location.reload();
+    }); 
+});
