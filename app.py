@@ -4,6 +4,7 @@ import plotly.express as px
 import main
 import util
 import stats
+import json
 from plot import get_elo_history_data
 import os
 
@@ -45,6 +46,13 @@ def perform_elo_update():
     util.save_data()
     return "ELOs updated successfully", 200
 
+@flask_app.route("/new_game", methods=['POST'])
+def new_game():
+    data = json.loads(request.data)
+    print(f"Received new game data: {data}")
+    main.add_new_game(**data)
+    return request.data, 200
+
 @flask_app.route("/matchup", methods=['GET'])
 def matchup():
     deck_name = request.args.get('deck_name')
@@ -63,6 +71,10 @@ def get_all_decks():
 @flask_app.route("/get_all_games")
 def get_all_games():
     return [game.json() for game in main.all_games]
+
+@flask_app.route("/get_all_players")
+def get_all_players():
+    return main.all_players
 
 @flask_app.route("/plot_elos")
 def redirect_to_plot():

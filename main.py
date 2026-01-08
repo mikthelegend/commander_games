@@ -52,6 +52,16 @@ def extract_decks_from_string(list_of_deck_names):
 
     return final_array
 
+# Converts an array of deck names into a string, quoting names that contain commas.
+def convert_deck_array_to_string(deck_array):
+    final_string = ""
+    for deck in deck_array:
+        if ", " in deck:
+            final_string += f'"{deck}", '
+        else:
+            final_string += f"{deck}, "
+    return final_string[:-2]  # Remove trailing comma and space
+
 # Fetches all games from the "Games" worksheet and returns them as a list of dictionaries.
 def get_all_games():
     print("Fetching all games...")
@@ -62,6 +72,47 @@ def get_all_games():
     return games
 
 all_games = get_all_games()
+
+def get_all_players():
+    players = set()
+    for game in all_games:
+        players.add(game.winning_player)
+        for loser in game.losing_players:
+            players.add(loser)
+    return list(players)
+
+all_players = get_all_players()
+
+# Adds a new game to the all_games list and updates the "Games" table in the "Games" worksheet.
+def add_new_game(winning_player, losing_players, winning_deck, losing_decks, date, notes):
+    print("Adding new game...")
+    new_game = Game(
+        game_id = str(len(all_games) + 1),
+        winning_player = winning_player,
+        losing_players = losing_players,
+        winning_deck = winning_deck,
+        losing_decks = losing_decks,
+        date = date,
+        notes = notes
+    )
+
+    all_games.append(new_game)
+
+    games_worksheet = sheet.worksheet("Games")
+    games_worksheet.append_row([
+        new_game.game_id,
+        new_game.winning_player,
+        ", ".join(new_game.losing_players),
+        new_game.winning_deck,
+        convert_deck_array_to_string(new_game.losing_decks),
+        new_game.date,
+        new_game.notes
+    ])
+    print("New game added successfully.")
+
+    calculate_elos()
+    update_spreadsheet()
+
 
 # Calculates the entire ELO history for all decks based on the recorded games.
 def calculate_elos():

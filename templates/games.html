@@ -5,7 +5,8 @@
 {% block content %}
 <div class="games-page">
     <h1>Games</h1>
-
+    <button id="add_new_game_button">Add New Game</button>
+    {% include "new_game.html" %}
     <table id="games_table" class="games-table">
         <thead>
             <tr>

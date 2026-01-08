@@ -87,6 +87,44 @@ th {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+#add_new_game_card {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  overflow: scroll;
+  top: 25%;
+  left: 20px;
+  right: 20px;
+  height: 50%;
+  background: rgba(0,0,0,0.5);
+}
+
+.player-deck-row {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+textarea {
+    width: calc(100% - 25px);
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+}
+
 /* small screens */
 @media (max-width: 800px) {
   .top-nav { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
