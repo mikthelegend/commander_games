@@ -1,5 +1,5 @@
 import gspread
-from datetime import date
+from datetime import date, datetime
 from google.oauth2.service_account import Credentials
 import re
 from deck import Deck
@@ -86,13 +86,16 @@ all_players = get_all_players()
 # Adds a new game to the all_games list and updates the "Games" table in the "Games" worksheet.
 def add_new_game(winning_player, losing_players, winning_deck, losing_decks, date, notes):
     print("Adding new game...")
+
+    date_object = datetime.strptime(date, "%Y-%m-%d").date()
+
     new_game = Game(
         game_id = str(len(all_games) + 1),
         winning_player = winning_player,
         losing_players = losing_players,
         winning_deck = winning_deck,
         losing_decks = losing_decks,
-        date = date,
+        date = date_object.strftime("%-d/%-m/%y"),
         notes = notes
     )
 
@@ -107,7 +110,7 @@ def add_new_game(winning_player, losing_players, winning_deck, losing_decks, dat
         convert_deck_array_to_string(new_game.losing_decks),
         new_game.date,
         new_game.notes
-    ])
+    ], value_input_option='USER_ENTERED')
     print("New game added successfully.")
 
     calculate_elos()
