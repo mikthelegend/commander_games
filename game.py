@@ -25,22 +25,3 @@ class Game:
             "date": self.date,
             "notes": self.notes
         }
-    
-    def get_winning_player(self):
-        return self.winning_player
-    
-    def get_losing_players(self):
-        return self.losing_players
-    
-    def get_winning_deck(self):
-        return self.winning_deck
-    
-    def get_losing_decks(self):
-        return self.losing_decks
-    
-    def get_date(self):
-        return self.date
-    
-    def get_notes(self):
-        return self.notes
-    
