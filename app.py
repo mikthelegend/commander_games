@@ -12,6 +12,7 @@ flask_app = Flask(__name__)
 dash_app = Dash(__name__, server=flask_app, url_base_pathname='/plot/')
 
 # -------- Web Routes --------
+
 @flask_app.route("/")
 def index():
     return render_template('index.html')
@@ -26,10 +27,6 @@ def stats():
     main.all_games = main.get_all_games()
     main.calculate_elos()
     return render_template('stats.html')
-
-@flask_app.route("/log")
-def log():
-    return render_template('log.html')
 
 # -------- API Routes --------
 
