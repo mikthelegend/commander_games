@@ -18,7 +18,7 @@ fetch('/get_all_games')
             cell2.innerHTML = game.winning_player;
             cell3.innerHTML = game.losing_players.join(", ");
             cell4.innerHTML = game.winning_deck;
-            cell5.innerHTML = game.losing_decks.join(", ");
+            cell5.innerHTML = game.losing_decks.join("<br>");
             cell6.innerHTML = game.date;
             cell7.innerHTML = game.notes;
 
