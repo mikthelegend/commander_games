@@ -16,7 +16,7 @@ function loadRandomGames() {
             document.getElementById('random_games_container').innerHTML = '';
             random_games.forEach(random_game => {
                 const randomGameCard = document.createElement('div');
-                randomGameCard.className = 'game-card';
+                randomGameCard.className = 'card';
                 randomGameCard.innerHTML = generateGameCard(random_game);
 
                 document.getElementById('random_games_container').appendChild(randomGameCard);

@@ -1,36 +1,56 @@
 html {
-    font-family: Arial, sans-serif;
-    background-color: #d5d5d5;
+  font-family: Arial, sans-serif;
+  background-color: #d5d5d5;
 }
 
 body {
-    margin: 20px;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 8px;
+  margin: 20px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
 }
 
 table {
-    border-collapse: collapse;
-    margin-top: 20px;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
 
 th, td {
-    border: 1px solid #bebebe;
-    padding: 8px 12px;
-    text-align: left;
+  border: 1px solid #bebebe;
+  padding: 8px 12px;
+  text-align: left;
 }
 
 th {
-    background-color: #ddd;
+  background-color: #ddd;
+}
+
+#stats_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#records_widescreen {
+  display: block;
+}
+
+#records_mobile {
+  display: none;
+}
+
+#analysis_results_mobile {
+  display: none;
 }
 
 .block {
-    margin: 20px;
-    padding: 20px;
-    background-color: #ffdcab;
-    border-radius: 8px;
-    box-shadow: black 0px 0px 10px;
+  width: 500px;
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: black 0px 0px 10px;
 }
 
 .site-header {
@@ -71,7 +91,7 @@ th {
 }
 
 .nav-list a:hover {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 #games_table {
@@ -85,14 +105,14 @@ th {
   flex-direction: column;
 }
 
-.game-card {
+.card {
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 1rem;
   margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  width: 250px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 300px;
 }
 
 #random_games_container {
@@ -107,7 +127,7 @@ th {
   border-radius: 8px;
   padding: 1rem;
   margin-top: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .modal {
@@ -118,7 +138,7 @@ th {
   left: 20px;
   right: 20px;
   height: 50%;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .player-deck-row {
@@ -127,23 +147,47 @@ th {
   border-radius: 8px;
   padding: 1rem;
   margin-top: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 textarea {
-    width: calc(100% - 25px);
-    height: 80px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: none;
+  width: calc(100% - 25px);
+  height: 80px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
 }
 
 /* small screens */
 @media (max-width: 800px) {
-  .top-nav { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
-  .nav-list { flex-wrap: wrap; gap: 0.5rem; }
-  #games_list { display: flex; }
-  #games_table { display: none; }
-  #random_games_container { flex-direction: column; }
+  .top-nav {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  .nav-list {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  body {
+    margin: 10px;
+    padding: 10px;
+  }
+  #games_list {display: flex;}
+  #games_table {display: none;}
+  #random_games_container {flex-direction: column;}
+  #records_widescreen {display: none;}
+  #records_mobile {display: block;}
+  #analysis_container {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
+  }
+  #analysis_results_widescreen {display: none;}
+  #analysis_results_mobile {display: block;}
 }

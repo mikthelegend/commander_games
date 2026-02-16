@@ -25,7 +25,7 @@ fetch('/get_all_games')
             // Populate game list for small screens.
             const gameList = document.getElementById("games_list");
             const listItem = document.createElement("div");
-            listItem.className = "game-card";
+            listItem.className = "card";
             listItem.innerHTML = generateGameCard(game);
             gameList.appendChild(listItem);
         });

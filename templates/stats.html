@@ -6,8 +6,25 @@
 <h1>Statistics</h1>
 <p>Welcome to the statistics page!</p>
 <p>Here you can interact with the data to find interesting information about your decks!</p>
-<div style="display: flex;">
-    <div class="block">
+<div id="stats_container">
+    <div class="block" id="records_widescreen">
+        <h2>ELO Records</h2>
+        <table id="elo_records">
+            <tr>
+                <th>Record</th>
+                <th>Deck Name</th>
+                <th>Elo</th>
+            </tr>
+        </table>
+    </div>
+    <div class="card" id="records_mobile">
+        <h2>ELO Records</h2>
+        <strong>Highest Current ELO:</strong><p id="highest_current_elo"></p>
+        <strong>Lowest Current ELO:</strong><p id="lowest_current_elo"></p>
+        <strong>Highest ELO Ever:</strong><p id="highest_elo_ever"></p>
+        <strong>Lowest ELO Ever:</strong><p id="lowest_elo_ever"></p>
+    </div>
+    <div class="block" id="analysis_container">
         <h2>Deck Analysis</h2>
         <p>View detailed statistics for a specific deck.</p>
         <div>
@@ -17,57 +34,55 @@
             </select>
             <button id="analyse_button">Analyse Deck</button>
         </div>
-        <div>
-            <h3>Deck Analysis:</h3>
-            <table id="deck_analysis_results">
-                <tr>
-                    <th>Deck Name</th>
-                    <td id="deck_name"></td>
-                </tr>
-                <tr>
-                    <th>Win Rate</th>
-                    <td id="deck_win_rate"></td>
-                </tr>
-                <tr>
-                    <th>Current ELO</th>
-                    <td id="deck_elo"></td>
-                </tr>
-                <tr>
-                    <th>Average Opponent ELO</th>
-                    <td id="deck_avrg_opponent_elo"></td>
-                </tr>
-                <tr>
-                    <th>Average Opponent ELO When Win</th>
-                    <td id="deck_avrg_opponent_elo_when_win"></td>
-                </tr>
-                <tr>
-                    <th>Average Opponent ELO When Lose</th>
-                    <td id="deck_avrg_opponent_elo_when_lose"></td>
-                </tr>
-                <tr>
-                    <th>Most Common Opponents</th>
-                    <td id="deck_most_common_opponents"></td>
-                </tr>
-                <tr>
-                    <th>Win Rate Per Opponent</th>
-                    <td id="deck_win_rate_per_opponent"></td>
-                </tr>
-                <tr>
-                    <th>Lose Rate Per Opponent</th>
-                    <td id="deck_lose_rate_per_opponent"></td>
-                </tr>
-            </table>
+        <div id="analysis_results_container" style="display: none;">
+            <div id="analysis_results_widescreen">
+                <h3>Deck Analysis:</h3>
+                <table id="deck_analysis_results">
+                    <tr>
+                        <th>Deck Name</th>
+                        <td id="deck_name"></td>
+                    </tr>
+                    <tr>
+                        <th>Games Played</th>
+                        <td id="deck_games_played"></td>
+                    </tr>
+                    <tr>
+                        <th>Win Rate</th>
+                        <td id="deck_win_rate"></td>
+                    </tr>
+                    <tr>
+                        <th>Current ELO</th>
+                        <td id="deck_elo"></td>
+                    </tr>
+                    <tr>
+                        <th>Average Opponent ELO</th>
+                        <td id="deck_avrg_opponent_elo"></td>
+                    </tr>
+                    <tr>
+                        <th>Average Opponent ELO When Win</th>
+                        <td id="deck_avrg_opponent_elo_when_win"></td>
+                    </tr>
+                    <tr>
+                        <th>Average Opponent ELO When Lose</th>
+                        <td id="deck_avrg_opponent_elo_when_lose"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><table id="deck_opponents"></table></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="analysis_results_mobile">
+                <h3>Deck Analysis:</h3>
+                <p><strong>Deck Name:</strong> <span id="deck_name_mobile"></span></p>
+                <p><strong>Games Played:</strong> <span id="deck_games_played_mobile"></span></p>
+                <p><strong>Win Rate:</strong> <span id="deck_win_rate_mobile"></span></p>
+                <p><strong>Current ELO:</strong> <span id="deck_elo_mobile"></span></p>
+                <p><strong>Avrg Opponent ELO:</strong> <span id="deck_avrg_opponent_elo_mobile"></span></p>
+                <p><strong>Avrg Opponent ELO | Win:</strong> <span id="deck_avrg_opponent_elo_when_win_mobile"></span></p>
+                <p><strong>Avrg Opponent ELO | Lose:</strong> <span id="deck_avrg_opponent_elo_when_lose_mobile"></span></p>
+                <table id="deck_opponents_mobile"></table>
+            </div>
         </div>
-    </div>
-    <div class="block">
-        <h2>ELO Records</h2>
-        <table id="elo_records">
-            <tr>
-                <th>Record</th>
-                <th>Deck Name</th>
-                <th>Elo</th>
-            </tr>
-        </table>
     </div>
 </div>
 <!-- <div>
