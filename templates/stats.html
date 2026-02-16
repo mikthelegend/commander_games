@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Statistics — Commander Games{% endblock %}
+
+{% block content %}
+<h1>Statistics</h1>
+<p>Welcome to the statistics page!</p>
+<p>Here you can interact with the data to find interesting information about your decks!</p>
+<div style="display: flex;">
+    <div class="block">
+        <h2>Matchup Generator</h2>
+        <p>Generate matchups based on your deck's ELO ratings.</p>
+        <div>
+            <label for="matchup_dropdown">Deck:</label>
+            <select id="matchup_dropdown" name="matchup_dropdown">
+                <!-- Options will be populated dynamically -->
+            </select>
+            <button id="matchup_button">Generate Matchup</button>
+        </div>
+        <div>
+            <h3>Matchup Results:</h3>
+            <table id="matchup_result">
+                <tr>
+                    <th>Deck Name</th>
+                    <th>ELO Difference</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="block">
+        <h2>ELO Records</h2>
+        <table id="elo_records">
+            <tr>
+                <th>Record</th>
+                <th>Deck Name</th>
+                <th>Elo</th>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- <div>
+    <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQduVW11WOejPaLkhyrEt2yvqzlpdmEdI6WMAzhohSltsfY5XgtfH6gsoWshYGEz-WP_44Cdy_RZ18-/pubhtml?gid=997820102&amp;single=true&amp;widget=true&amp;headers=false", width="100%"></iframe>
+</div> -->
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='stats.js') }}"></script>
+{% endblock %}

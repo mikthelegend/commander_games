@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<main role="main" class="container">
+    <header>
+        <h1>Welcome to Commander Games!</h1>
+        <p>This site collates game data for our Commander (Magic: The Gathering) games and presents it in an easy-to-read format, along with visualisations and interactive data analysis features.</p>
+    </header>
+
+    <div>
+        <h2>Random Games</h2>
+        <p>Check out these randomly selected games:</p>
+        <button id="new_random_game_btn">Show More Random Games</button>
+        <div id="random_games_container">
+            <!-- Random game details will be populated here by static/index.js -->
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='index.js') }}"></script>
+{% endblock %}

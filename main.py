@@ -1,5 +1,5 @@
 import gspread
-from datetime import date
+from datetime import date, datetime
 from google.oauth2.service_account import Credentials
 import re
 from deck import Deck
@@ -52,6 +52,16 @@ def extract_decks_from_string(list_of_deck_names):
 
     return final_array
 
+# Converts an array of deck names into a string, quoting names that contain commas.
+def convert_deck_array_to_string(deck_array):
+    final_string = ""
+    for deck in deck_array:
+        if ", " in deck:
+            final_string += f'"{deck}", '
+        else:
+            final_string += f"{deck}, "
+    return final_string[:-2]  # Remove trailing comma and space
+
 # Fetches all games from the "Games" worksheet and returns them as a list of dictionaries.
 def get_all_games():
     print("Fetching all games...")
@@ -63,31 +73,70 @@ def get_all_games():
 
 all_games = get_all_games()
 
+def get_all_players():
+    players = set()
+    for game in all_games:
+        players.add(game.winning_player)
+        for loser in game.losing_players:
+            players.add(loser)
+    return list(players)
+
+all_players = get_all_players()
+
+# Adds a new game to the all_games list and updates the "Games" table in the "Games" worksheet.
+def add_new_game(winning_player, losing_players, winning_deck, losing_decks, date, notes):
+    print("Adding new game...")
+
+    date_object = datetime.strptime(date, "%Y-%m-%d").date()
+
+    new_game = Game(
+        game_id = str(len(all_games) + 1),
+        winning_player = winning_player,
+        losing_players = losing_players,
+        winning_deck = winning_deck,
+        losing_decks = losing_decks,
+        date = date_object.strftime("%-d/%-m/%y"),
+        notes = notes
+    )
+
+    all_games.append(new_game)
+
+    games_worksheet = sheet.worksheet("Games")
+    games_worksheet.append_row([
+        new_game.game_id,
+        new_game.winning_player,
+        ", ".join(new_game.losing_players),
+        new_game.winning_deck,
+        convert_deck_array_to_string(new_game.losing_decks),
+        new_game.date,
+        new_game.notes
+    ], value_input_option='USER_ENTERED')
+    print("New game added successfully.")
+
+    calculate_elos()
+    update_spreadsheet()
+
+
 # Calculates the entire ELO history for all decks based on the recorded games.
 def calculate_elos():
     print("Calculating ELOs...")
     for game in all_games:
+
         # Obtain Winning and Losing Decks
-        winning_deck = get_deck_by_name(game.get_winning_deck())
+        winning_deck = get_deck_by_name(game.winning_deck)
 
         if winning_deck is None:
-            print(f"Deck {game.get_winning_deck()} not found in all_decks")
+            print(f"Deck {game.winning_deck} not found in all_decks")
             return
-        
-        if winning_deck.elo_history == []:
-            winning_deck.add_elo(1000, game.get_date())
 
         losing_decks = []
-        for losing_deck_name in game.get_losing_decks():
+        for losing_deck_name in game.losing_decks:
             losing_deck = get_deck_by_name(losing_deck_name)
 
             if losing_deck is None:
                 print(f"Deck {losing_deck_name} not found in all_decks")
                 return
-            
-            if losing_deck.elo_history == []:
-                losing_deck.add_elo(1000, game.get_date())
-            
+
             losing_decks.append(losing_deck)
 
         # Calculate changes in ELO from this game
@@ -107,10 +156,10 @@ def calculate_elos():
                 loser_elo_change += losing_deck.k * (0.5 - losing_deck.odds_of_winning_against(other_losing_deck))
             
             # Update the losing deck's ELO
-            losing_deck.add_elo(losing_deck.get_current_elo() + loser_elo_change, game.get_date())
+            losing_deck.add_elo(losing_deck.get_current_elo() + loser_elo_change, game.date, game.game_id)
             
         #Update the winning deck's ELO
-        winning_deck.add_elo(winning_deck.get_current_elo() + winner_elo_change, game.get_date())
+        winning_deck.add_elo(winning_deck.get_current_elo() + winner_elo_change, game.date, game.game_id)
 
 calculate_elos()
 

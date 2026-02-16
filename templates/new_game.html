@@ -1,0 +1,166 @@
+<div id="add_new_game_card" class="modal">
+
+    <h1>Log New Game</h1>
+
+    <form method="post" action="{{ url_for('new_game') }}" id="new_game_form">
+        <div class="player-deck-row">
+            <label>
+                Winning player
+                <select name="winning_player" class="player_select" required>
+                    <option value="">Select a player</option>
+                    <!-- Options will be populated by JavaScript -->
+                </select>
+            </label><br>
+
+            <label>
+                Winning deck
+                <select name="winning_deck" class="deck_select" required>
+                    <option value="">Select a deck</option>
+                    <!-- Options will be populated by JavaScript -->
+                </select>
+            </label>
+        </div>
+
+        <fieldset>
+            <legend>Losing players & decks</legend>
+
+            <div id="losers">
+                <div class="player-deck-row">
+                    <label>
+                        Losing player
+                        <select name="losing_players[]" class="player_select" required>
+                            <option value="">Select a player</option>
+                            <!-- Options will be populated by JavaScript -->
+                        </select>
+                    </label><br>
+
+                    <label>
+                        Losing deck
+                        <select name="losing_decks[]" class="deck_select" required>
+                            <option value="">Select a deck</option>
+                            <!-- Options will be populated by JavaScript -->
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button type="button" id="add-loser">+</button>
+                <button type="button" id="remove-loser">-</button>
+            </div>
+        </fieldset><br>
+
+        <label>
+            Date
+            <input type="date" name="date" />
+        </label><br>
+
+        <label>
+            Notes
+            <textarea name="notes" rows="5" placeholder="Notes about the game"></textarea>
+        </label><br>
+
+        <div>
+            <button type="submit">Save game</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    (function () {
+        const new_game_button = document.getElementById('add_new_game_button');
+        new_game_button.addEventListener('click', () => {
+            document.getElementById('add_new_game_card').style.display = 'block';
+            console.log("New game form displayed");
+        });
+
+        const losersContainer = document.getElementById('losers');
+        const addBtn = document.getElementById('add-loser');
+        const remBtn = document.getElementById('remove-loser');
+
+        function makeLoserRow() {
+            const row = losersContainer.firstElementChild.cloneNode(true);
+
+            row.querySelectorAll('select').forEach(select => {
+                select.value = '';
+            });
+
+            return row;
+        }
+
+        addBtn.addEventListener('click', () => {
+            losersContainer.appendChild(makeLoserRow());
+        });
+
+        remBtn.addEventListener('click', () => {
+            const rows = losersContainer.getElementsByClassName('player-deck-row');
+            if (rows.length > 1) {
+                losersContainer.removeChild(rows[rows.length - 1]);
+            }
+        });
+
+        fetch('/get_all_players')
+            .then(response => response.json())
+            .then(data => {
+                const playerSelects = document.querySelectorAll('.player_select');
+                playerSelects.forEach(select => {
+                    data.forEach(player => {
+                        const option = document.createElement('option');
+                        option.value = player;
+                        option.textContent = player;
+                        select.appendChild(option);
+                    });
+                });
+            });
+        
+        fetch('/get_all_decks')
+            .then(response => response.json())
+            .then(data => {
+                const deckSelects = document.querySelectorAll('.deck_select');
+                deckSelects.forEach(select => {
+                    data.forEach(deck => {
+                        const option = document.createElement('option');
+                        option.value = deck.name;
+                        option.textContent = deck.name;
+                        select.appendChild(option);
+                    });
+                });
+            });
+
+        const formElement = document.getElementById('new_game_form')
+        formElement.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(formElement);
+            const data = {};
+            formData.forEach((value, key) => {
+                if (key.endsWith('[]')) {
+                    const actualKey = key.slice(0, -2);
+                    if (!data[actualKey]) {
+                        data[actualKey] = [];
+                    }
+                    data[actualKey].push(value);
+                } else {
+                    data[key] = value;
+                }
+            });
+
+            console.log('Submitting form data:', data);
+
+            fetch(formElement.action, {
+                method: formElement.method,
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Success:', result);
+                document.getElementById('add_new_game_card').style.display = 'none';
+                formElement.reset();
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    })();
+</script>

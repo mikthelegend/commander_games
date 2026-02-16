@@ -1,0 +1,149 @@
+html {
+    font-family: Arial, sans-serif;
+    background-color: #d5d5d5;
+}
+
+body {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+}
+
+table {
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #bebebe;
+    padding: 8px 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #ddd;
+}
+
+.block {
+    margin: 20px;
+    padding: 20px;
+    background-color: #ffdcab;
+    border-radius: 8px;
+    box-shadow: black 0px 0px 10px;
+}
+
+.site-header {
+  background: #ffdcab;
+  color: #000;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.top-nav .logo {
+  color: #000;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-list a {
+  color: #000;
+  text-decoration: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+}
+
+.nav-list a:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+#games_table {
+  width: 100%;
+}
+
+#games_list {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.game-card {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 250px;
+}
+
+#random_games_container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+#add_new_game_card {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  overflow: scroll;
+  top: 25%;
+  left: 20px;
+  right: 20px;
+  height: 50%;
+  background: rgba(0,0,0,0.5);
+}
+
+.player-deck-row {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+textarea {
+    width: calc(100% - 25px);
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+}
+
+/* small screens */
+@media (max-width: 800px) {
+  .top-nav { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+  .nav-list { flex-wrap: wrap; gap: 0.5rem; }
+  #games_list { display: flex; }
+  #games_table { display: none; }
+  #random_games_container { flex-direction: column; }
+}
