@@ -9,20 +9,15 @@
     <button id="refresh_games_button">Refresh Games</button>
     {% include "new_game.html" %}
     <table id="games_table" class="games-table">
-        <thead>
-            <tr>
-                <th scope="col">Game ID</th>
-                <th scope="col">Winning Player</th>
-                <th scope="col">Losing Players</th>
-                <th scope="col">Winning Deck</th>
-                <th scope="col">Losing Decks</th>
-                <th scope="col">Date</th>
-                <th scope="col">Notes</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Rows will be inserted here by static/games.js -->
-        </tbody>
+        <tr>
+            <th scope="col">Game ID</th>
+            <th scope="col">Winning Player</th>
+            <th scope="col">Losing Players</th>
+            <th scope="col">Winning Deck</th>
+            <th scope="col">Losing Decks</th>
+            <th scope="col">Date</th>
+            <th scope="col">Notes</th>
+        </tr>
     </table>
     <div id="games_list">
         <!-- Game entries will be populated here by static/games.js -->
