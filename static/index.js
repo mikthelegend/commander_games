@@ -17,11 +17,7 @@ function loadRandomGames() {
             random_games.forEach(random_game => {
                 const randomGameCard = document.createElement('div');
                 randomGameCard.className = 'game-card';
-                randomGameCard.innerHTML = `<strong>Game ID:</strong> ${random_game.game_id} <strong>Date:</strong> ${random_game.date} <br>
-                                            <strong>Winner:</strong> ${random_game.winning_player} <br>(${random_game.winning_deck}) <br>
-                                            <strong>Losers:</strong> ${random_game.losing_players.join(", ")} <br>
-                                            <strong>Losing Decks:</strong> <br>${random_game.losing_decks.join("<br>")} <br>
-                                            <strong>Notes:</strong> <br>${random_game.notes}`;
+                randomGameCard.innerHTML = generateGameCard(random_game);
 
                 document.getElementById('random_games_container').appendChild(randomGameCard);
             });

@@ -17,8 +17,8 @@ fetch('/get_all_games')
             cell1.innerHTML = game.game_id;
             cell2.innerHTML = game.winning_player;
             cell3.innerHTML = game.losing_players.join(", ");
-            cell4.innerHTML = game.winning_deck;
-            cell5.innerHTML = game.losing_decks.join("<br>");
+            cell4.innerHTML = `${game.winning_deck.name} (${Math.round(game.winning_deck.elo_before)} → ${Math.round(game.winning_deck.elo_after)})`;
+            cell5.innerHTML = game.losing_decks.map(deck => `${deck.name} (${Math.round(deck.elo_before)} → ${Math.round(deck.elo_after)})`).join("<br>");
             cell6.innerHTML = game.date;
             cell7.innerHTML = game.notes;
 
@@ -26,11 +26,7 @@ fetch('/get_all_games')
             const gameList = document.getElementById("games_list");
             const listItem = document.createElement("div");
             listItem.className = "game-card";
-            listItem.innerHTML = `<strong>Game ID:</strong> ${game.game_id} <strong>Date:</strong> ${game.date} <br>
-                                  <strong>Winner:</strong> ${game.winning_player} <br>(${game.winning_deck}) <br>
-                                  <strong>Losers:</strong> ${game.losing_players.join(", ")} <br>
-                                  <strong>Losing Decks:</strong> <br>${game.losing_decks.join("<br>")} <br>
-                                  <strong>Notes:</strong> <br>${game.notes}`;
+            listItem.innerHTML = generateGameCard(game);
             gameList.appendChild(listItem);
         });
     });
