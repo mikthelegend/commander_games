@@ -123,18 +123,18 @@ def calculate_elos():
     for game in all_games:
 
         # Obtain Winning and Losing Decks
-        winning_deck = get_deck_by_name(game.winning_deck)
+        winning_deck = get_deck_by_name(game.winning_deck.name)
 
         if winning_deck is None:
-            print(f"Deck {game.winning_deck} not found in all_decks")
+            print(f"Deck {game.winning_deck.name} not found in all_decks")
             return
 
         losing_decks = []
-        for losing_deck_name in game.losing_decks:
-            losing_deck = get_deck_by_name(losing_deck_name)
+        for losing_deck in game.losing_decks:
+            losing_deck = get_deck_by_name(losing_deck.name)
 
             if losing_deck is None:
-                print(f"Deck {losing_deck_name} not found in all_decks")
+                print(f"Deck {losing_deck.name} not found in all_decks")
                 return
 
             losing_decks.append(losing_deck)
@@ -155,9 +155,15 @@ def calculate_elos():
                 # Loser's elo changes for each other losing deck
                 loser_elo_change += losing_deck.k * (0.5 - losing_deck.odds_of_winning_against(other_losing_deck))
             
+            # Log ELO change for the losing deck in the game record
+            game.losing_decks[losing_decks.index(losing_deck)].log_elo_change(losing_deck.get_current_elo(), loser_elo_change)
+            
             # Update the losing deck's ELO
             losing_deck.add_elo(losing_deck.get_current_elo() + loser_elo_change, game.date, game.game_id)
-            
+
+        # Log ELO change for the winning deck in the game record
+        game.winning_deck.log_elo_change(winning_deck.get_current_elo(), winner_elo_change)
+
         #Update the winning deck's ELO
         winning_deck.add_elo(winning_deck.get_current_elo() + winner_elo_change, game.date, game.game_id)
 
