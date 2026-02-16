@@ -23,9 +23,6 @@ def games():
 
 @flask_app.route("/stats")
 def stats():
-    main.all_decks = main.get_all_decks()
-    main.all_games = main.get_all_games()
-    main.calculate_elos()
     return render_template('stats.html')
 
 # -------- API Routes --------
