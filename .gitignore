@@ -48,3 +48,4 @@ coverage.xml
 *.log
 *.sqlite3
 credentials.json
+data.json
