@@ -8,21 +8,53 @@
 <p>Here you can interact with the data to find interesting information about your decks!</p>
 <div style="display: flex;">
     <div class="block">
-        <h2>Matchup Generator</h2>
-        <p>Generate matchups based on your deck's ELO ratings.</p>
+        <h2>Deck Analysis</h2>
+        <p>View detailed statistics for a specific deck.</p>
         <div>
-            <label for="matchup_dropdown">Deck:</label>
-            <select id="matchup_dropdown" name="matchup_dropdown">
+            <label for="deck_analysis_dropdown">Deck:</label>
+            <select id="deck_analysis_dropdown" name="deck_analysis_dropdown">
                 <!-- Options will be populated dynamically -->
             </select>
-            <button id="matchup_button">Generate Matchup</button>
+            <button id="analyse_button">Analyse Deck</button>
         </div>
         <div>
-            <h3>Matchup Results:</h3>
-            <table id="matchup_result">
+            <h3>Deck Analysis:</h3>
+            <table id="deck_analysis_results">
                 <tr>
                     <th>Deck Name</th>
-                    <th>ELO Difference</th>
+                    <td id="deck_name"></td>
+                </tr>
+                <tr>
+                    <th>Win Rate</th>
+                    <td id="deck_win_rate"></td>
+                </tr>
+                <tr>
+                    <th>Current ELO</th>
+                    <td id="deck_elo"></td>
+                </tr>
+                <tr>
+                    <th>Average Opponent ELO</th>
+                    <td id="deck_avrg_opponent_elo"></td>
+                </tr>
+                <tr>
+                    <th>Average Opponent ELO When Win</th>
+                    <td id="deck_avrg_opponent_elo_when_win"></td>
+                </tr>
+                <tr>
+                    <th>Average Opponent ELO When Lose</th>
+                    <td id="deck_avrg_opponent_elo_when_lose"></td>
+                </tr>
+                <tr>
+                    <th>Most Common Opponents</th>
+                    <td id="deck_most_common_opponents"></td>
+                </tr>
+                <tr>
+                    <th>Win Rate Per Opponent</th>
+                    <td id="deck_win_rate_per_opponent"></td>
+                </tr>
+                <tr>
+                    <th>Lose Rate Per Opponent</th>
+                    <td id="deck_lose_rate_per_opponent"></td>
                 </tr>
             </table>
         </div>

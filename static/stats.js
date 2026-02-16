@@ -1,7 +1,4 @@
-console.log("Populating deck dropdown...");
-
-// Matchup generation
-
+// Populate dropdown with deck names
 let innerHTML = "";
 fetch('/get_all_decks')
     .then(response => response.json())
@@ -9,32 +6,26 @@ fetch('/get_all_decks')
         data.forEach(deck => {
             innerHTML += `<option value="${deck.name}">${deck.name}</option>`;
         });
-        document.getElementById("matchup_dropdown").innerHTML = innerHTML;
+        document.getElementById("deck_analysis_dropdown").innerHTML = innerHTML;
     });
 
-document.getElementById("matchup_button").onclick = function() {
-    let selected_deck = document.getElementById("matchup_dropdown").value;
+document.getElementById("analyse_button").onclick = function() {
+    let selected_deck = document.getElementById("deck_analysis_dropdown").value;
     console.log("Selected deck:", selected_deck);
-    fetch(`/matchup?deck_name=${encodeURIComponent(selected_deck)}`)
+    fetch(`/get_stats?deck_name=${encodeURIComponent(selected_deck)}`)
         .then(response => response.json())
         .then(data => {
-            const table = document.getElementById("matchup_result");
-            // Clear previous results
-            table.innerHTML = `<tr>
-                    <th>Deck Name</th>
-                    <th>ELO Difference</th>
-                </tr>`;
-            for (let i = 0; i < Math.min(5, data.length); i++) {
-                const entry = data[i];
-                const opponent = entry[0];
-                const elo_diff = entry[1];
-                const row = table.insertRow();
-                const cell1 = row.insertCell(0);
-                const cell2 = row.insertCell(1);
-                cell1.innerHTML = opponent;
-                cell2.innerHTML = (elo_diff<0?"":"+") + String(elo_diff.toFixed(2));
-                cell2.style.color = elo_diff < 0 ? "red" : "green";
-            }
+            console.log("Deck analysis data:", data);
+
+            document.getElementById("deck_name").innerHTML = data.deck_name;
+            document.getElementById("deck_win_rate").innerHTML = (data.win_rate * 100).toFixed(2) + "%";
+            document.getElementById("deck_elo").innerHTML = data.current_elo.toFixed(0);
+            document.getElementById("deck_avrg_opponent_elo").innerHTML = data.avrg_opponent_elo.toFixed(2);
+            document.getElementById("deck_avrg_opponent_elo_when_win").innerHTML = data.avrg_opponent_elo_when_win.toFixed(2);
+            document.getElementById("deck_avrg_opponent_elo_when_lose").innerHTML = data.avrg_opponent_elo_when_lose.toFixed(2);
+            document.getElementById("deck_most_common_opponents").innerHTML = data.most_common_opponents.map(opponent => `${opponent[0]} (${opponent[1]})`).join("<br>");
+            document.getElementById("deck_win_rate_per_opponent").innerHTML = data.most_common_opponents_when_win.map(opponent => `${opponent[0]} (${opponent[1]}/${opponent[2]} - ${(opponent[1] / opponent[2] * 100).toFixed(0)}%)`).join("<br>");
+            document.getElementById("deck_lose_rate_per_opponent").innerHTML = data.most_common_opponents_when_lose.map(opponent => `${opponent[0]} (${opponent[1]}/${opponent[2]} - ${(opponent[1] / opponent[2] * 100).toFixed(0)}%)`).join("<br>");
         });
 }
 

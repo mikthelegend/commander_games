@@ -3,7 +3,7 @@ from dash import Dash, dcc, html
 import plotly.express as px
 import main
 import util
-import stats
+from stats import analyze_deck, find_records
 import json
 from plot import get_elo_history_data
 import os
@@ -50,16 +50,15 @@ def new_game():
     main.add_new_game(**data)
     return request.data, 200
 
-@flask_app.route("/matchup", methods=['GET'])
-def matchup():
+@flask_app.route("/get_stats", methods=['GET'])
+def get_stats():
     deck_name = request.args.get('deck_name')
-    deck = main.get_deck_by_name(deck_name)
-    matchups = stats.generate_matchup(deck)
-    return matchups
+    results = analyze_deck(deck_name)
+    return results.json(), 200
 
 @flask_app.route("/records")
 def get_records():
-    return stats.find_records()
+    return find_records()
 
 @flask_app.route("/get_all_decks")
 def get_all_decks():
