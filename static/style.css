@@ -95,10 +95,10 @@ th {
   width: 250px;
 }
 
-#random_game_container {
+#random_games_container {
   display: flex;
-  align-items: center;
   justify-content: center;
+  gap: 1rem;
 }
 
 #add_new_game_card {
@@ -145,4 +145,5 @@ textarea {
   .nav-list { flex-wrap: wrap; gap: 0.5rem; }
   #games_list { display: flex; }
   #games_table { display: none; }
+  #random_games_container { flex-direction: column; }
 }
