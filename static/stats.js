@@ -80,7 +80,19 @@ document.getElementById("analyse_button").onclick = function() {
                 opponents_table_mobile.appendChild(mobile_row);
             }
         });
-}
+
+    fetch(`https://api.scryfall.com/cards/named?exact=${selected_deck.split(" ").join("+")}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("Scryfall data:", data);
+            if (data.image_uris && data.image_uris.normal) {
+                document.getElementById("deck_image").src = data.image_uris.normal;
+                document.getElementById("deck_image").style.display = "block";
+            } else {
+                document.getElementById("deck_image").style.display = "none";
+            }
+        })
+};
 
 // Elo Records
 fetch('/records')

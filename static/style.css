@@ -44,6 +44,15 @@ th {
   display: none;
 }
 
+#deck_image {
+  display: none; 
+  position: absolute;
+  left: 50%;
+  transform: translate(130px, -120px);
+  max-width: 120px; 
+  height: auto; 
+}
+
 .block {
   width: 500px;
   margin: 20px;
@@ -190,4 +199,11 @@ textarea {
   }
   #analysis_results_widescreen {display: none;}
   #analysis_results_mobile {display: block;}
+  #deck_image {
+    position: relative;
+    transform: translate(0, 0);
+    left: 0;
+    padding-top: 20px;
+    max-width: 300px; 
+  }
 }
