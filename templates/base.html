@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Commander Games{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="top-nav">
+            <a class="logo" href="{{ url_for('index') }}">Commander Games</a>
+            <ul class="nav-list">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('games') }}">Games</a></li>
+                <li><a href="{{ url_for('stats') }}">Statistics</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <small>&copy; {{ current_year if current_year is defined else '' }} Mikail Yildirim</small>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
