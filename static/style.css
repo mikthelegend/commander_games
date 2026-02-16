@@ -1,6 +1,6 @@
 html {
   font-family: Arial, sans-serif;
-  background-color: #d5d5d5;
+  background-color: #ccc;
 }
 
 body {
@@ -8,6 +8,10 @@ body {
   padding: 20px;
   background-color: #f4f4f4;
   border-radius: 8px;
+}
+
+footer {
+  margin-top: 30px;
 }
 
 table {
@@ -23,6 +27,26 @@ th, td {
 
 th {
   background-color: #ddd;
+}
+
+button {
+  padding: 12px;
+  border-radius: 10px;
+  /*
+  background-color: #ffdcab;
+  border: 3px solid #bb9867;
+  box-shadow: 0 4px 0 #bb9867;
+  */
+  background-color: #ddd;
+  border: 3px solid #999;
+  box-shadow: 0 4px 0 #999;
+  /*color: #fff;*/
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+button:hover {
+  cursor:pointer;
 }
 
 #stats_container {
@@ -58,8 +82,9 @@ th {
   margin: 20px;
   padding: 20px;
   background-color: #fff;
-  border-radius: 8px;
-  box-shadow: black 0px 0px 10px;
+  border: 3px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 16px 0 #ccc;
 }
 
 .site-header {
@@ -112,15 +137,18 @@ th {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin-top: 20px;
+  gap: 1em;
 }
 
 .card {
   background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 1rem;
+  border: 3px solid #ccc;
+  border-radius: 12px;
+  padding: 1.2rem;
   margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+  box-shadow: 0 12px 0 #ccc;
   width: 300px;
 }
 
@@ -180,8 +208,8 @@ textarea {
     gap: 0.5rem;
   }
   body {
-    margin: 10px;
-    padding: 10px;
+    margin: 0 0 120px 0;
+    /*padding: 30px;*/
   }
   #games_list {display: flex;}
   #games_table {display: none;}
