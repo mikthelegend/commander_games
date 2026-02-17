@@ -99,23 +99,38 @@ def add_new_game(winning_player, losing_players, winning_deck, losing_decks, dat
         notes = notes
     )
 
-    all_games.append(new_game)
-
     games_worksheet = sheet.worksheet("Games")
-    games_worksheet.append_row([
+    row_data = [
         new_game.game_id,
         new_game.winning_player,
         ", ".join(new_game.losing_players),
-        new_game.winning_deck,
-        convert_deck_array_to_string(new_game.losing_decks),
+        new_game.winning_deck.name,
+        convert_deck_array_to_string([deck.name for deck in new_game.losing_decks]),
         new_game.date,
         new_game.notes
-    ], value_input_option='USER_ENTERED')
+    ]
+
+    gspread_append_row(games_worksheet, row_data)
+
     print("New game added successfully.")
 
-    calculate_elos()
-    update_spreadsheet()
+# Works around gspread's lack of support for appending rows to Table Objects by inserting a new row and shuffling the existing data down.
+def gspread_append_row(worksheet, row_data):
+    all_values = worksheet.get_all_values()
+    last_row = len(all_values)
+    next_row = last_row + 1
 
+    worksheet.insert_row([""] * len(row_data), index=last_row) # Insert a new row at the second last position
+    worksheet.update(
+        f"A{last_row}:{chr(64 + len(row_data))}{last_row}", # Shuffle the last row down to the new row
+        [all_values[-1]],
+        value_input_option="USER_ENTERED"
+    )
+    worksheet.update(
+        f"A{next_row}:{chr(64 + len(row_data))}{next_row}", # Overwrite the last row with the new data
+        [row_data],
+        value_input_option="USER_ENTERED"
+    )
 
 # Calculates the entire ELO history for all decks based on the recorded games.
 def calculate_elos():
