@@ -7,8 +7,11 @@ call conda activate commander_games
 rem Step 3: Change directory to the desired folder.
 cd /d "E:\webservers\commander_games"
 
-rem Step 4: Run the Python script.
+rem Step 4: pull from github
+git pull
+
+rem Step 5: Run the Python script.
 flask run --host=0.0.0.0
 
-rem Step 5: Keep the command prompt open after execution (optional)
+rem Step 6: Keep the command prompt open after execution (optional)
 cmd /k
