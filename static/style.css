@@ -142,21 +142,50 @@ button:hover {
   gap: 1em;
 }
 
+#test {
+  display: flex;
+  flex-direction: column;
+  background-color: blue;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
 .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background: #fff;
-  border: 3px solid #ccc;
+  border: 3px solid #bbb;
   border-radius: 12px;
-  padding: 1.2rem;
-  margin-bottom: 1rem;
+  padding: 0;
+  margin-bottom: 12px;
   /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
-  box-shadow: 0 12px 0 #ccc;
+  box-shadow: 0 12px 0 #bbb;
+  flex-grow: 1;
+  /*max-width: 400px;*/
   width: 300px;
 }
 
 #random_games_container {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 20px;
+}
+
+#game_card_header {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 20px 14px 20px;
+  background-color: #bbb;
+}
+
+#game_card_body {
+  padding: 20px;
+}
+
+#game_card_footer {
+  padding: 20px;
+  background-color: #ddd;
 }
 
 #add_new_game_card {
@@ -207,6 +236,10 @@ textarea {
   .nav-list {
     flex-wrap: wrap;
     gap: 0.5rem;
+  }
+  .card {
+    width: auto;
+    max-width: 400px;
   }
   body {
     margin: 0 0 120px 0;
