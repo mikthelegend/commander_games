@@ -106,8 +106,8 @@ def add_new_game(winning_player, losing_players, winning_deck, losing_decks, dat
         new_game.game_id,
         new_game.winning_player,
         ", ".join(new_game.losing_players),
-        new_game.winning_deck,
-        convert_deck_array_to_string(new_game.losing_decks),
+        new_game.winning_deck.name,
+        convert_deck_array_to_string([deck.name for deck in new_game.losing_decks]),
         new_game.date,
         new_game.notes
     ], value_input_option='USER_ENTERED')
