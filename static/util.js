@@ -8,7 +8,7 @@ function generateGameCard(game) {
         year: "numeric",
     }
     return `
-            <div id=game_card_header>
+            <div class="card_header">
                 <div>
                     ${date.toLocaleDateString("en-AU", options)}
                 </div>
@@ -16,7 +16,7 @@ function generateGameCard(game) {
                     <b>ID</b> ${game.game_id}
                 </div>
             </div>
-            <div id=game_card_body>
+            <div class="card_body">
                 <div>
                     <div><b>Winner:</b> ${game.winning_player}</div>
                     <div>${game.winning_deck.name} [${(game.winning_deck.elo_after - game.winning_deck.elo_before < 0 ? "" : "+") + Math.round(game.winning_deck.elo_after - game.winning_deck.elo_before)}]</div>
@@ -27,7 +27,7 @@ function generateGameCard(game) {
                     ${game.losing_decks.map(deck => `${deck.name} [${(deck.elo_after - deck.elo_before < 0 ? "" : "+") + Math.round(deck.elo_after - deck.elo_before)}]`).join("<br>")} <br>
                 </div>
             </div>
-            <div id=game_card_footer> 
+            <div class="card_footer"> 
                 <!--<b>Notes:</b> <br>-->
                 ${game.notes}
             </div>

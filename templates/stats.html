@@ -18,22 +18,27 @@
         </table>
     </div>
     <div class="card" id="records_mobile">
-        <h2>ELO Records</h2>
-        <strong>Highest Current ELO:</strong><p id="highest_current_elo"></p>
-        <strong>Lowest Current ELO:</strong><p id="lowest_current_elo"></p>
-        <strong>Highest ELO Ever:</strong><p id="highest_elo_ever"></p>
-        <strong>Lowest ELO Ever:</strong><p id="lowest_elo_ever"></p>
+        <div class="card_header">
+            <h2>ELO Records</h2>
+        </div>
+        <div class="card_body">
+            <strong>Highest Current ELO:</strong><p id="highest_current_elo"></p>
+            <strong>Lowest Current ELO:</strong><p id="lowest_current_elo"></p>
+            <strong>Highest ELO Ever:</strong><p id="highest_elo_ever"></p>
+            <strong>Lowest ELO Ever:</strong><p id="lowest_elo_ever"></p>
+        </div>
+        <div class="card_footer">
+            <p>Note: "Current ELO" refers to the ELO of decks that are currently active in the database, while "ELO Ever" refers to the highest or lowest ELO that any deck has ever achieved.</p>
+        </div>
     </div>
     <div class="block" id="analysis_container">
         <h2>Deck Analysis</h2>
         <p>View detailed statistics for a specific deck.</p>
-        <div>
-            <label for="deck_analysis_dropdown">Deck:</label>
-            <select id="deck_analysis_dropdown" name="deck_analysis_dropdown">
-                <!-- Options will be populated dynamically -->
-            </select>
-            <button id="analyse_button">Analyse Deck</button>
-        </div>
+        <label for="deck_analysis_dropdown">Deck:</label>
+        <select id="deck_analysis_dropdown" name="deck_analysis_dropdown">
+            <!-- Options will be populated dynamically -->
+        </select>
+        <button id="analyse_button">Analyse Deck</button>
         <img id="deck_image" src="" alt="Deck Image">
         <div id="analysis_results_container" style="display: none;">
             <div id="analysis_results_widescreen">
