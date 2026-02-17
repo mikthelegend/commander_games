@@ -23,6 +23,11 @@ class Deck:
             return self.elo_history[-1]["elo"]
         return 1000
     
+    def get_current_elo_entry(self):
+        if self.elo_history:
+            return self.elo_history[-1]
+        return {"elo": 1000, "date": None, "game_id": None}
+    
     # New method to calculate odds of winning against another deck
     def odds_of_winning_against(self, opponent):
         expected = 1 / (1 + 10 ** ((opponent.get_current_elo() - self.get_current_elo()) / 400))

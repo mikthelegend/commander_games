@@ -51,7 +51,7 @@ def new_game():
 def get_stats():
     deck_name = request.args.get('deck_name')
     results = analyze_deck(deck_name)
-    return results.json(), 200
+    return results, 200
 
 @flask_app.route("/records")
 def get_records():

@@ -21,6 +21,7 @@ document.getElementById("analyse_button").onclick = function() {
 
             document.getElementById("deck_name").innerHTML = data.deck_name;
             document.getElementById("deck_games_played").innerHTML = data.games_played;
+            document.getElementById("deck_last_played").innerHTML = `${data.last_played.date} (Game ID: ${data.last_played.game_id})`;
             document.getElementById("deck_win_rate").innerHTML = (data.win_rate * 100).toFixed(2) + "%" + " (" + data.win_rate * data.games_played + " wins)";
             document.getElementById("deck_elo").innerHTML = data.current_elo.toFixed(0);
             document.getElementById("deck_avrg_opponent_elo").innerHTML = data.avrg_opponent_elo.toFixed(2);
@@ -30,6 +31,7 @@ document.getElementById("analyse_button").onclick = function() {
             // Populate Mobile Data
             document.getElementById("deck_name_mobile").innerHTML = data.deck_name;
             document.getElementById("deck_games_played_mobile").innerHTML = data.games_played;
+            document.getElementById("deck_last_played_mobile").innerHTML = `${data.last_played.date} (Game ID: ${data.last_played.game_id})`;
             document.getElementById("deck_win_rate_mobile").innerHTML = (data.win_rate * 100).toFixed(2) + "%" + " (" + data.win_rate * data.games_played + " wins)";
             document.getElementById("deck_elo_mobile").innerHTML = data.current_elo.toFixed(0);
             document.getElementById("deck_avrg_opponent_elo_mobile").innerHTML = data.avrg_opponent_elo.toFixed(2);
@@ -104,38 +106,46 @@ fetch('/records')
         let cell1 = row.insertCell(0);
         let cell2 = row.insertCell(1);
         let cell3 = row.insertCell(2);
+        let cell4 = row.insertCell(3);
         cell1.innerHTML = "Highest Current ELO";
         cell2.innerHTML = data.highest_current.deck;
-        cell3.innerHTML = data.highest_current.elo.toFixed();
+        cell3.innerHTML = data.highest_current.elo_entry.elo.toFixed();
+        cell4.innerHTML = `${data.highest_current.elo_entry.date}<br>ID: ${data.highest_current.elo_entry.game_id}`;
 
         row = table.insertRow();
         cell1 = row.insertCell(0);
         cell2 = row.insertCell(1);
         cell3 = row.insertCell(2);
+        cell4 = row.insertCell(3);
         cell1.innerHTML = "Lowest Current ELO";
         cell2.innerHTML = data.lowest_current.deck;
-        cell3.innerHTML = data.lowest_current.elo.toFixed();
+        cell3.innerHTML = data.lowest_current.elo_entry.elo.toFixed()
+        cell4.innerHTML = `${data.lowest_current.elo_entry.date}<br>ID: ${data.lowest_current.elo_entry.game_id}`;
 
         row = table.insertRow();
         cell1 = row.insertCell(0);
         cell2 = row.insertCell(1);
         cell3 = row.insertCell(2);
+        cell4 = row.insertCell(3);
         cell1.innerHTML = "Highest ELO Ever";
         cell2.innerHTML = data.highest_ever.deck;
-        cell3.innerHTML = data.highest_ever.elo.toFixed();
+        cell3.innerHTML = data.highest_ever.elo_entry.elo.toFixed();
+        cell4.innerHTML = `${data.highest_ever.elo_entry.date}<br>ID: ${data.highest_ever.elo_entry.game_id}`;
 
         row = table.insertRow();
         cell1 = row.insertCell(0);
         cell2 = row.insertCell(1);
         cell3 = row.insertCell(2);
+        cell4 = row.insertCell(3);
         cell1.innerHTML = "Lowest ELO Ever";
         cell2.innerHTML = data.lowest_ever.deck;
-        cell3.innerHTML = data.lowest_ever.elo.toFixed();
+        cell3.innerHTML = data.lowest_ever.elo_entry.elo.toFixed();
+        cell4.innerHTML = `${data.lowest_ever.elo_entry.date}<br>ID: ${data.lowest_ever.elo_entry.game_id}`;
 
         // Mobile data
-        document.getElementById("highest_current_elo").innerHTML = data.highest_current.deck + " (" + data.highest_current.elo.toFixed() + ")";
-        document.getElementById("lowest_current_elo").innerHTML = data.lowest_current.deck + " (" + data.lowest_current.elo.toFixed() + ")";
-        document.getElementById("highest_elo_ever").innerHTML = data.highest_ever.deck + " (" + data.highest_ever.elo.toFixed() + ")";
-        document.getElementById("lowest_elo_ever").innerHTML = data.lowest_ever.deck + " (" + data.lowest_ever.elo.toFixed() + ")";
+        document.getElementById("highest_current_elo").innerHTML = data.highest_current.deck + " (" + data.highest_current.elo_entry.elo.toFixed() + ")";
+        document.getElementById("lowest_current_elo").innerHTML = data.lowest_current.deck + " (" + data.lowest_current.elo_entry.elo.toFixed() + ")";
+        document.getElementById("highest_elo_ever").innerHTML = data.highest_ever.deck + " (" + data.highest_ever.elo_entry.elo.toFixed() + ")";
+        document.getElementById("lowest_elo_ever").innerHTML = data.lowest_ever.deck + " (" + data.lowest_ever.elo_entry.elo.toFixed() + ")";
 
     });

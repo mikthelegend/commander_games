@@ -22,15 +22,19 @@ def analyze_deck(deck_name):
     games_played = 0
     wins = 0
 
+    # Sums the ELO of all opponents across all games to calculate the average ELO of opponents faced
     avrg_opponent_elo = 0
     num_opponents = 0
 
+    # Sums the ELO of opponents when the deck wins to calculate the average ELO of opponents faced in wins
     avrg_opponent_elo_when_win = 0
     num_opponents_when_win = 0
 
+    # Sums the ELO of opponents when the deck loses to calculate the average ELO of opponents faced in losses
     avrg_opponent_elo_when_lose = 0
     num_opponents_when_lose = 0
 
+    # Libraries to count the number of times the deck has faced each opponent and the number of wins against each opponent
     opponent_decks = {}
     opponent_decks_when_win = {}
 
@@ -70,121 +74,87 @@ def analyze_deck(deck_name):
                     opponent_decks[deck.name] = 0
                 opponent_decks[deck.name] += 1
 
-    stats = Deck_Stats(deck_name)
+    stats = {
+        "deck_name": deck_name,
+        "games_played": games_played,
+        "last_played": {"date": deck_object.get_current_elo_entry()["date"], "game_id": deck_object.get_current_elo_entry()["game_id"]},
+        "win_rate": wins / games_played if games_played > 0 else 0,
+        "current_elo": deck_object.get_current_elo(),
+        "avrg_opponent_elo": avrg_opponent_elo / num_opponents if num_opponents > 0 else 0,
+        "avrg_opponent_elo_when_win": avrg_opponent_elo_when_win / num_opponents_when_win if num_opponents_when_win > 0 else 0,
+        "avrg_opponent_elo_when_lose": avrg_opponent_elo_when_lose / num_opponents_when_lose if num_opponents_when_lose > 0 else 0,
+        "opponents": []
+    }
 
-    stats.games_played = games_played
-    stats.win_rate = wins / games_played if games_played > 0 else 0
-    stats.current_elo = deck_object.get_current_elo()
-
-    stats.avrg_opponent_elo = avrg_opponent_elo / num_opponents if num_opponents > 0 else 0
-    stats.avrg_opponent_elo_when_win = avrg_opponent_elo_when_win / num_opponents_when_win if num_opponents_when_win > 0 else 0
-    stats.avrg_opponent_elo_when_lose = avrg_opponent_elo_when_lose / num_opponents_when_lose if num_opponents_when_lose > 0 else 0
-
-    stats.opponents = []
     for opponent in opponent_decks:
         if opponent not in opponent_decks_when_win:
             opponent_decks_when_win[opponent] = 0
 
-        stats.opponents.append({
+        stats["opponents"].append({
             "name": opponent,
             "games_played_vs": opponent_decks[opponent],
             "wins_vs": opponent_decks_when_win[opponent],
-            "losses_vs": opponent_decks[opponent] - (opponent_decks_when_win[opponent] if opponent in opponent_decks_when_win else 0),
-            "win_rate_vs": (opponent_decks_when_win[opponent] / opponent_decks[opponent]) if opponent in opponent_decks and opponent_decks[opponent] > 0 else 0
+            "losses_vs": opponent_decks[opponent] - (opponent_decks_when_win[opponent]),
+            "win_rate_vs": (opponent_decks_when_win[opponent] / opponent_decks[opponent]) if opponent_decks[opponent] > 0 else 0
         })
 
-    stats.opponents.sort(key=lambda x: (x["games_played_vs"], x["win_rate_vs"]), reverse=True)
+    stats["opponents"].sort(key=lambda x: (x["games_played_vs"], x["win_rate_vs"]), reverse=True)
 
     return stats
-
-
-class Deck_Stats:
-    def __init__(self, deck_name):
-        self.deck_name = deck_name
-        self.games_played = 0
-        self.win_rate = 0
-        self.current_elo = 0
-        self.avrg_opponent_elo = 0
-        self.avrg_opponent_elo_when_win = 0
-        self.avrg_opponent_elo_when_lose = 0
-        self.opponents = []
-
-    def __repr__(self):
-        return (f"Deck_Stats(deck_name={self.deck_name}, win_rate={self.win_rate}, current_elo={self.current_elo}, "
-                f"avrg_opponent_elo={self.avrg_opponent_elo}, avrg_opponent_elo_when_win={self.avrg_opponent_elo_when_win}, "
-                f"avrg_opponent_elo_when_lose={self.avrg_opponent_elo_when_lose}, opponents={self.opponents}, ")
-    
-    def json(self):
-        return {
-            "deck_name": self.deck_name,
-            "games_played": self.games_played,
-            "win_rate": self.win_rate,
-            "current_elo": self.current_elo,
-            "avrg_opponent_elo": self.avrg_opponent_elo,
-            "avrg_opponent_elo_when_win": self.avrg_opponent_elo_when_win,
-            "avrg_opponent_elo_when_lose": self.avrg_opponent_elo_when_lose,
-            "opponents": self.opponents
-        }
-
-    def pretty_print(self):
-        print(f"Deck Name: {self.deck_name}")
-        print(f"Win Rate: {self.win_rate:.2%}")
-        print(f"Current ELO: {self.current_elo}")
-        print(f"Average Opponent ELO: {self.avrg_opponent_elo:.2f}")
-        print(f"Average Opponent ELO When Win: {self.avrg_opponent_elo_when_win:.2f}")
-        print(f"Average Opponent ELO When Lose: {self.avrg_opponent_elo_when_lose:.2f}")
-        print("Opponents:")
-        for opponent in self.opponents:
-            print(f"  {opponent.name} - Games Played: {opponent['games_played_vs']}, Wins: {opponent['wins_vs']}, Losses: {opponent['losses_vs']}, Win Rate: {opponent['win_rate_vs']:.2%}")
-
 
 # Finds the highest recorded elo, lowest recorded elo, both currently and historically
 def find_records():
     highest_current_elo = float('-inf')
     highest_elo_deck = None
+    highest_elo_entry = None
 
     lowest_current_elo = float('inf')
     lowest_elo_deck = None
+    lowest_elo_entry = None
 
     highest_elo_ever = float('-inf')
     highest_elo_ever_deck = None
+    highest_elo_ever_entry = None
 
     lowest_elo_ever = float('inf')
     lowest_elo_ever_deck = None
+    lowest_elo_ever_entry = None
 
     for deck in main.all_decks:
         current_elo = deck.get_current_elo()
         if current_elo > highest_current_elo:
             highest_current_elo = current_elo
             highest_elo_deck = deck.name
+            highest_elo_entry = deck.get_current_elo_entry()
         if current_elo < lowest_current_elo:
             lowest_current_elo = current_elo
             lowest_elo_deck = deck.name
+            lowest_elo_entry = deck.get_current_elo_entry()
         
         for entry in deck.elo_history:
-            elo = entry["elo"]
-            if elo > highest_elo_ever:
-                highest_elo_ever = elo
+            if entry["elo"] > highest_elo_ever:
+                highest_elo_ever = entry["elo"]
                 highest_elo_ever_deck = deck.name
-            if elo < lowest_elo_ever:
-                lowest_elo_ever = elo
+                highest_elo_ever_entry = entry
+            if entry["elo"] < lowest_elo_ever:
+                lowest_elo_ever = entry["elo"]
                 lowest_elo_ever_deck = deck.name
-
+                lowest_elo_ever_entry = entry
     return {
         "highest_current": {
             "deck": highest_elo_deck,
-            "elo": highest_current_elo
+            "elo_entry": highest_elo_entry
         },
         "lowest_current": {
             "deck": lowest_elo_deck,
-            "elo": lowest_current_elo
+            "elo_entry": lowest_elo_entry
         },
         "highest_ever": {
             "deck": highest_elo_ever_deck,
-            "elo": highest_elo_ever
+            "elo_entry": highest_elo_ever_entry
         },
         "lowest_ever": {
             "deck": lowest_elo_ever_deck,
-            "elo": lowest_elo_ever
+            "elo_entry": lowest_elo_ever_entry
         }
     }
