@@ -216,15 +216,7 @@ textarea {
   #random_games_container {flex-direction: column;}
   #records_widescreen {display: none;}
   #records_mobile {display: block;}
-  #analysis_container {
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 300px;
-  }
+  #analysis_container {width: 300px;}
   #analysis_results_widescreen {display: none;}
   #analysis_results_mobile {display: block;}
   #deck_image {
