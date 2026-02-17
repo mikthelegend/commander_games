@@ -3,6 +3,7 @@ const new_game_button = document.getElementById('add_new_game_button');
 
 new_game_button.addEventListener('click', () => {
     document.getElementById('add_new_game_card').style.display = 'block';
+    document.getElementById('date_input').valueAsDate = new Date();
     console.log("New game form displayed");
 });
 
@@ -98,7 +99,6 @@ formElement.addEventListener('submit', function (event) {
         .then(response => response.json())
         .then(result => {
             console.log('Success:', result);
-            document.getElementById('add_new_game_card').style.display = 'none';
             formElement.reset();
             location.reload();
         })
