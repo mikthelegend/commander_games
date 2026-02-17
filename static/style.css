@@ -10,6 +10,21 @@ body {
   border-radius: 8px;
 }
 
+.please_wait {
+  font-size: 1.2rem;
+  background-color: #5555557F;
+  color: white;
+  display: none;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
 table {
   border-collapse: collapse;
   margin-top: 20px;

@@ -32,6 +32,9 @@ fetch('/get_all_games')
     });
 
 document.getElementById("refresh_games_button").addEventListener("click", () => {
+    document.querySelectorAll('.please_wait').forEach(el => {
+        el.style.display = 'flex';
+    });
     fetch('/update').then(() => {
         location.reload();
     }); 
