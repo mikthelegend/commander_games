@@ -45,6 +45,7 @@ def new_game():
     data = json.loads(request.data)
     print(f"Received new game data: {data}")
     main.add_new_game(**data)
+    perform_elo_update()  # Recalculate ELOs after adding the new game
     return request.data, 200
 
 @flask_app.route("/get_stats", methods=['GET'])
