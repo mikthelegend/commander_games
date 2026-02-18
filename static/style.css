@@ -309,6 +309,9 @@ select::picker-icon {
 }
 
 .card_body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   padding: 20px;
 }
 
@@ -318,6 +321,19 @@ select::picker-icon {
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
+
+.deck_with_elo {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+/*
+.elo_change {
+  font-weight: bold;
+  color: var(--bar);
+}
+*/
 
 #random_games_container {
   display: flex;
