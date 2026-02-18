@@ -1,14 +1,49 @@
 :root {
+  /* THEMES */
+
+  /* Mint */
+  /*
+  --border: #656565;
+  --bg: #808782;
+  --bar: #A6D3A0;
+  --main: #D1FFD7;
+  */
+
+  /* Boyscout */
+  /*
   --bg: #81B29A;
   --bar: #F2CC8F;
   --border: #3D405B;
   --button: #E07A5F;
   --main: #F4F1DE;
+  */
+
+  /* Jeans */
+  /*
+  --border: #576166;
+  --bg: #918271;
+  --bar: #7B99A8;
+  --main: #E5DDD3;
+  */
+
+  /* Olive */
+  /*
+  --border: #342A21;
+  --bg: #C9B79C;
+  --bar: #71816D;
+  --main: #F1E0C5;
+  */
+
+  /* Coffee */
+  --border: #000000;
+  --bg: #BAA898;
+  --main: #EEE0CB;
+  --bar: #839788;
 }
 
 html {
   font-family: Arial, sans-serif;
-  background-color: #81b29a;
+  background-color: var(--bg);
 }
 
 body {
@@ -30,9 +65,10 @@ h2 {
 }
 
 .please_wait {
-  font-size: 1.2rem;
-  background-color: #5555557F;
+  font-size: 1.4rem;
+  background-color: #5555558F;
   color: white;
+  font-weight: bold;
   display: none;
   width: 100%;
   height: 100%;
@@ -42,6 +78,15 @@ h2 {
   top: 0;
   left: 0;
   z-index: 1000;
+  text-shadow: /* text outline */
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000,
+    -3px 0px 0 #000,
+    3px 0px 0 #000,
+    0px -3px 0 #000,
+    0px 3px 0 #000;
 }
 
 footer {
@@ -51,16 +96,19 @@ footer {
 table {
   border-collapse: collapse;
   margin-top: 20px;
+  background-color: white;
+  /*border-radius: 20px;*/
+  overflow: hidden;
 }
 
 th, td {
-  border: 1px solid #bebebe;
+  border: 3px solid var(--border);
   padding: 8px 12px;
   text-align: left;
 }
 
 th {
-  background-color: #ddd;
+  background-color: var(--bar);
 }
 
 /*
@@ -68,24 +116,30 @@ th {
   Otherwise, they move the rest of the page when hovered.
 */
 button {
-  padding: 12px;
+  padding: 12px 24px;
   margin-bottom: 6px;
   border-radius: 10px;
   background-color: var(--bar);
   color: var(--border);
-  border: 3px solid var(--button);
-  box-shadow: 0 6px 0 var(--button);
+  border: 3px solid var(--border);
+  box-shadow: 0 6px 0 var(--border);
   font-size: 1rem;
   font-weight: bold;
   width: max-content;
+  min-width: 140px;
   align-self: center;
 }
 
 button:hover {
   cursor:pointer;
-  box-shadow: 0 0px 0 var(--button);
+  box-shadow: 0 0;
   margin-top: 6px;
   margin-bottom: 0;
+}
+
+i {
+  margin-left: -2px;
+  margin-right: 8px;
 }
 
 select {
@@ -199,8 +253,7 @@ select::picker-icon {
 }
 
 .nav-list a:hover {
-  background: rgba(0, 0, 0, 0.06);
-  background: var(--button);
+  background: var(--border);
   color: #fff;
 }
 
@@ -262,15 +315,15 @@ select::picker-icon {
 .card_footer {
   padding: 20px;
   background-color: var(--bar);
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 #random_games_container {
   display: flex;
   justify-content: center;
   margin: 30px 0;
-  gap: 1rem;
+  gap: 20px;
 }
 
 .modal {
@@ -312,7 +365,7 @@ textarea {
   .top-nav {
     flex-direction: column;
     gap: 0.5rem;
-    padding-top: 20px;
+    padding: 16px 0 10px 0;
   }
   .nav-list {
     justify-content: space-between;
@@ -325,11 +378,15 @@ textarea {
     margin: 0 0 40px 0;
     padding: 0;
   }
+  #random_games_container {
+    flex-direction: column; 
+    align-items: center; 
+    gap: 26px;
+  }
   button {flex-grow: 1;}
   .site-footer {padding-left: 20px;}
   #games_list {display: flex;}
   #games_table {display: none;}
-  #random_games_container {flex-direction: column; align-items: center;}
   #records_widescreen {display: none;}
   #records_mobile {display: block;}
   #analysis_container {
@@ -337,13 +394,13 @@ textarea {
   }
   #analysis_results_widescreen {display: none;}
   #analysis_results_mobile {display: block;}
+  /*
   #deck_image {
-    /*
     position: relative;
     transform: translate(0, 0);
     left: 0;
     padding-top: 20px;
     max-width: 300px; 
-    */
   }
+  */
 }
