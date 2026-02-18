@@ -23,10 +23,11 @@
             <h2>ELO Records</h2>
         </div>
         <div class="card_body">
-            <strong>Highest Current ELO:</strong><p id="highest_current_elo"></p>
-            <strong>Lowest Current ELO:</strong><p id="lowest_current_elo"></p>
-            <strong>Highest ELO Ever:</strong><p id="highest_elo_ever"></p>
-            <strong>Lowest ELO Ever:</strong><p id="lowest_elo_ever"></p>
+            <!-- Change to "Current Lowest ELO" and "All Time Lowest ELO"? -->
+            <b>Highest Current ELO:</b><p id="highest_current_elo"></p> <br>
+            <b>Lowest Current ELO:</b><p id="lowest_current_elo"></p> <br>
+            <b>Highest ELO Ever:</b><p id="highest_elo_ever"></p> <br>
+            <b>Lowest ELO Ever:</b><p id="lowest_elo_ever"></p>
         </div>
         <div class="card_footer">
             <p>Note: "Current ELO" refers to most recent ELO of each deck, while "ELO Ever" refers to the highest or lowest ELO that any deck has ever achieved.</p>
@@ -35,11 +36,13 @@
     <div class="block" id="analysis_container">
         <h2>Deck Analysis</h2>
         <p>View detailed statistics for a specific deck.</p>
-        <label for="deck_analysis_dropdown">Deck:</label>
-        <select id="deck_analysis_dropdown" name="deck_analysis_dropdown">
-            <!-- Options will be populated dynamically -->
-        </select>
-        <button id="analyse_button">Analyse Deck</button>
+        <div class="flex-row">
+            <!-- <label for="deck_analysis_dropdown">Deck:</label> -->
+            <select id="deck_analysis_dropdown" name="deck_analysis_dropdown">
+                <!-- Options will be populated dynamically -->
+            </select>
+            <button id="analyse_button">Analyse Deck</button>
+        </div>
         <img id="deck_image" src="" alt="Deck Image">
         <div id="analysis_results_container" style="display: none;">
             <div id="analysis_results_widescreen">
@@ -84,14 +87,14 @@
             </div>
             <div id="analysis_results_mobile">
                 <h3>Deck Analysis:</h3>
-                <p><strong>Deck Name:</strong> <span id="deck_name_mobile"></span></p>
-                <p><strong>Games Played:</strong> <span id="deck_games_played_mobile"></span></p>
-                <p><strong>Last Played:</strong> <span id="deck_last_played_mobile"></span></p>
-                <p><strong>Win Rate:</strong> <span id="deck_win_rate_mobile"></span></p>
-                <p><strong>Current ELO:</strong> <span id="deck_elo_mobile"></span></p>
-                <p><strong>Avrg Opponent ELO:</strong> <span id="deck_avrg_opponent_elo_mobile"></span></p>
-                <p><strong>Avrg Opponent ELO | Win:</strong> <span id="deck_avrg_opponent_elo_when_win_mobile"></span></p>
-                <p><strong>Avrg Opponent ELO | Lose:</strong> <span id="deck_avrg_opponent_elo_when_lose_mobile"></span></p>
+                <p><b>Deck Name:</b> <span id="deck_name_mobile"></span></p>
+                <p><b>Games Played:</b> <span id="deck_games_played_mobile"></span></p>
+                <p><b>Last Played:</b> <span id="deck_last_played_mobile"></span></p>
+                <p><b>Win Rate:</b> <span id="deck_win_rate_mobile"></span></p>
+                <p><b>Current ELO:</b> <span id="deck_elo_mobile"></span></p>
+                <p><b>Avrg Opponent ELO:</b> <span id="deck_avrg_opponent_elo_mobile"></span></p>
+                <p><b>Avrg Opponent ELO | Win:</b> <span id="deck_avrg_opponent_elo_when_win_mobile"></span></p>
+                <p><b>Avrg Opponent ELO | Lose:</b> <span id="deck_avrg_opponent_elo_when_lose_mobile"></span></p>
                 <table id="deck_opponents_mobile"></table>
             </div>
         </div>
