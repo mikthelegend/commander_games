@@ -52,16 +52,17 @@ body {
 }
 
 main {
-  padding: 30px;
+  padding: 30px 34px;
   background-color: var(--main);
+  border: 3px solid var(--border);
   border-radius: 12px;
   margin-top: 20px;
   margin-bottom: 60px;
 }
 
 h2 {
-  margin-top: 30px;
-  margin-bottom: 4px;
+  margin-top: 20px;
+  margin-bottom: 6px;
 }
 
 .please_wait {
@@ -126,7 +127,7 @@ button {
   font-size: 1rem;
   font-weight: bold;
   width: max-content;
-  min-width: 140px;
+  min-width: 130px;
   align-self: center;
 }
 
@@ -145,12 +146,16 @@ i {
 select {
   padding: 12px;
   border-radius: 10px;
-  background-color: var(--main);
+  background-color: #fff;
   color: var(--border);
   border: 3px solid var(--border);
   font-size: 1rem;
   font-weight: bold;
   flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
 }
 
 select,
@@ -159,8 +164,34 @@ select,
 }
 
 select::picker-icon {
-  margin-right: 10px;
   color: var(--border);
+}
+
+.player_select, .deck_select {
+  max-width: 200px;
+}
+
+.selector-with-icon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+input {
+  padding: 10px;
+  border: 3px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--main);
+  flex-grow: 1;
+  font-size: 1.2em;
+  margin-bottom: 10px;
 }
 
 #stats_container {
@@ -216,6 +247,7 @@ select::picker-icon {
   color: #000;
   padding: 0 30px;
   border-radius: 12px;
+  border: 3px solid var(--border);
   min-height:30px;
 }
 
@@ -268,6 +300,15 @@ select::picker-icon {
   flex-direction: column;
   margin-top: 20px;
   gap: 1em;
+}
+
+#add_new_game_card {
+  width: 290px;
+  padding: 20px;
+}
+
+#remove-loser, #add-loser {
+  flex-grow: 1;
 }
 
 .flex-row {
@@ -328,6 +369,10 @@ select::picker-icon {
   margin-top: 6px;
 }
 
+.no-margin {
+  margin: 0;
+}
+
 /*
 .elo_change {
   font-weight: bold;
@@ -346,6 +391,8 @@ select::picker-icon {
   display: none;
   position: fixed;
   overflow: scroll;
+  overflow-y: auto;
+  height: 90vh;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -358,21 +405,31 @@ fieldset {
 }
 
 .player-deck-row {
-  background: #fff;
-  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  border: 3px solid var(--border);
   border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 22px;
+  background-color: var(--main);
+  box-shadow: 0 6px 0 var(--border);
+  flex-grow: 1;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.select-label {
+  margin-left: 20px;
 }
 
 textarea {
-  width: calc(100% - 25px);
-  height: 80px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  flex-grow: 1;
+  height: 100px;
+  padding: 16px;
+  border: 3px solid var(--border);
+  border-radius: 8px;
   resize: none;
+  margin: 6px 0 30px 0;
+  font-size: 1.2em;
 }
 
 /* small screens */
@@ -380,8 +437,8 @@ textarea {
   .site-header {margin: 20px 20px 0 20px;}
   .top-nav {
     flex-direction: column;
-    gap: 0.5rem;
-    padding: 16px 0 10px 0;
+    gap: 6px;
+    padding: 22px 0 10px 0;
   }
   .nav-list {
     justify-content: space-between;
@@ -399,15 +456,15 @@ textarea {
     align-items: center; 
     gap: 26px;
   }
+  main {border: 0;}
   button {flex-grow: 1;}
   .site-footer {padding-left: 20px;}
+  .top-nav .logo {font-size: 1.6em;}
   #games_list {display: flex;}
   #games_table {display: none;}
   #records_widescreen {display: none;}
   #records_mobile {display: block;}
-  #analysis_container {
-    width: 300px;
-  }
+  #analysis_container {width: 300px;}
   #analysis_results_widescreen {display: none;}
   #analysis_results_mobile {display: block;}
   /*
