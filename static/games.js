@@ -17,8 +17,8 @@ fetch('/get_all_games')
             cell1.innerHTML = game.game_id;
             cell2.innerHTML = game.winning_player;
             cell3.innerHTML = game.losing_players.join(", ");
-            cell4.innerHTML = `${game.winning_deck.name} (${Math.round(game.winning_deck.elo_before)} → ${Math.round(game.winning_deck.elo_after)})`;
-            cell5.innerHTML = game.losing_decks.map(deck => `${deck.name} (${Math.round(deck.elo_before)} → ${Math.round(deck.elo_after)})`).join("<br>");
+            cell4.innerHTML = `${game.winning_deck.name}<br>(${Math.round(game.winning_deck.elo_before)} → ${Math.round(game.winning_deck.elo_after)})`;
+            cell5.innerHTML = game.losing_decks.map(deck => `${deck.name}<br>(${Math.round(deck.elo_before)} → ${Math.round(deck.elo_after)})`).join("<br><br>");
             cell6.innerHTML = game.date;
             cell7.innerHTML = game.notes;
 
