@@ -311,6 +311,10 @@ input {
   flex-grow: 1;
 }
 
+#cancel_new_game {
+  background-color: #bbb;
+}
+
 .flex-row {
   display: flex;
   justify-content: center;
