@@ -5,8 +5,16 @@
 {% block content %}
 <div class="games-page">
     <h1>Games</h1>
-    <button id="add_new_game_button">Add New Game</button>
-    <button id="refresh_games_button">Refresh Games</button>
+    <div class="flex-row">
+        <button id="add_new_game_button">
+            <i class="fa fa-plus"></i>
+            Add New Game
+        </button>
+        <button id="refresh_games_button">
+            <i class="fa fa-rotate-right"></i>
+            Refresh
+        </button>
+    </div>
     {% include "new_game.html" %}
     <table id="games_table" class="games-table">
         <tr>
@@ -22,7 +30,10 @@
     <div id="games_list">
         <!-- Game entries will be populated here by static/games.js -->
     </div>
-    <div class="please_wait">Please wait...</div>
+    <div class="please_wait">
+        <i class="fa fa-rotate-right fa-spin"></i>
+        &nbsp; Please wait...
+    </div>
 </div>
 {% endblock %}
 

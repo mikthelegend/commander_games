@@ -1,19 +1,75 @@
+:root {
+  /* THEMES */
+
+  /* Mint */
+  /*
+  --border: #656565;
+  --bg: #808782;
+  --bar: #A6D3A0;
+  --main: #D1FFD7;
+  */
+
+  /* Boyscout */
+  /*
+  --bg: #81B29A;
+  --bar: #F2CC8F;
+  --border: #3D405B;
+  --button: #E07A5F;
+  --main: #F4F1DE;
+  */
+
+  /* Jeans */
+  /*
+  --border: #576166;
+  --bg: #918271;
+  --bar: #7B99A8;
+  --main: #E5DDD3;
+  */
+
+  /* Olive */
+  /*
+  --border: #342A21;
+  --bg: #C9B79C;
+  --bar: #71816D;
+  --main: #F1E0C5;
+  */
+
+  /* Coffee */
+  --border: #000000;
+  --bg: #BAA898;
+  --main: #EEE0CB;
+  --bar: #839788;
+}
+
 html {
   font-family: Arial, sans-serif;
-  background-color: #ccc;
+  background-color: var(--bg);
 }
 
 body {
-  margin: 20px;
-  padding: 20px;
-  background-color: #f4f4f4;
-  border-radius: 8px;
+  padding: 10px;
+  padding: 10px 5vw;
+}
+
+main {
+  padding: 30px 34px;
+  background-color: var(--main);
+  border: 3px solid var(--border);
+  border-radius: 12px;
+  margin-top: 20px;
+  margin-bottom: 60px;
+}
+
+h2 {
+  margin-top: 20px;
+  margin-bottom: 6px;
 }
 
 .please_wait {
-  font-size: 1.2rem;
-  background-color: #5555557F;
+  font-size: 1.4rem;
+  background-color: #5555558F;
   color: white;
+  font-weight: bold;
   display: none;
   width: 100%;
   height: 100%;
@@ -23,6 +79,15 @@ body {
   top: 0;
   left: 0;
   z-index: 1000;
+  text-shadow: /* text outline */
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000,
+    -3px 0px 0 #000,
+    3px 0px 0 #000,
+    0px -3px 0 #000,
+    0px 3px 0 #000;
 }
 
 footer {
@@ -32,37 +97,101 @@ footer {
 table {
   border-collapse: collapse;
   margin-top: 20px;
+  background-color: white;
+  /*border-radius: 20px;*/
+  overflow: hidden;
 }
 
 th, td {
-  border: 1px solid #bebebe;
+  border: 3px solid var(--border);
   padding: 8px 12px;
   text-align: left;
 }
 
 th {
-  background-color: #ddd;
+  background-color: var(--bar);
 }
 
+/*
+  NOTE: Buttons must be placed inside a flexbox (Eg. <div class="flex-row">).
+  Otherwise, they move the rest of the page when hovered.
+*/
 button {
-  padding: 12px;
-  margin-right: 10px;
+  padding: 12px 24px;
+  margin-bottom: 6px;
   border-radius: 10px;
-  /*
-  background-color: #ffdcab;
-  border: 3px solid #bb9867;
-  box-shadow: 0 4px 0 #bb9867;
-  */
-  background-color: #ddd;
-  border: 3px solid #999;
-  box-shadow: 0 4px 0 #999;
-  /*color: #fff;*/
+  background-color: var(--bar);
+  color: var(--border);
+  border: 3px solid var(--border);
+  box-shadow: 0 6px 0 var(--border);
   font-size: 1rem;
   font-weight: bold;
+  width: max-content;
+  min-width: 130px;
+  align-self: center;
 }
 
 button:hover {
   cursor:pointer;
+  box-shadow: 0 0;
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+i {
+  margin-left: -2px;
+  margin-right: 8px;
+}
+
+select {
+  padding: 12px;
+  border-radius: 10px;
+  background-color: #fff;
+  color: var(--border);
+  border: 3px solid var(--border);
+  font-size: 1rem;
+  font-weight: bold;
+  flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+select,
+::picker(select) {
+  appearance: base-select;
+}
+
+select::picker-icon {
+  color: var(--border);
+}
+
+.player_select, .deck_select {
+  max-width: 200px;
+}
+
+.selector-with-icon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+input {
+  padding: 10px;
+  border: 3px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--main);
+  flex-grow: 1;
+  font-size: 1.2em;
+  margin-bottom: 10px;
 }
 
 #stats_container {
@@ -86,43 +215,55 @@ button:hover {
 
 #deck_image {
   display: none; 
+  /*
   position: absolute;
   left: 50%;
   transform: translate(130px, -120px);
-  max-width: 120px; 
+  max-width: 120px;
+  */ 
+  margin: 20px;
+  max-width: 260px; 
   height: auto; 
+  border-radius: 10px;
+  align-self: center;
 }
 
 .block {
+  display: flex;
+  flex-direction: column;
   width: 500px;
   margin: 20px;
   padding: 20px;
   background-color: #fff;
-  border: 3px solid #ccc;
+  border: 3px solid var(--border);
   border-radius: 12px;
-  box-shadow: 0 16px 0 #ccc;
+  box-shadow: 0 16px 0 var(--border);
 }
 
 .site-header {
-  background: #ffdcab;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--bar);
   color: #000;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
+  padding: 0 30px;
+  border-radius: 12px;
+  border: 3px solid var(--border);
+  min-height:30px;
 }
 
 .top-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1100px;
-  margin: 0 auto;
+  flex-grow: 1;
+  min-height: 60px;
 }
 
 .top-nav .logo {
-  color: #000;
+  color: var(--border);
   text-decoration: none;
-  font-weight: 700;
-  font-size: 1.1rem;
+  font-weight: bold;
+  font-size: 1.3rem;
 }
 
 .nav-list {
@@ -130,18 +271,22 @@ button:hover {
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  min-height: 40px;
 }
 
 .nav-list a {
-  color: #000;
+  color: var(--border);
   text-decoration: none;
-  padding: 0.4rem 0.6rem;
-  border-radius: 4px;
+  font-weight: bold;
+  font-size: 1.1em;
+  padding: 12px 20px;
+  border-radius: 8px;
 }
 
 .nav-list a:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--border);
+  color: #fff;
 }
 
 #games_table {
@@ -157,12 +302,31 @@ button:hover {
   gap: 1em;
 }
 
-#test {
+#add_new_game_card {
+  width: 290px;
+  padding: 20px;
+}
+
+#remove-loser, #add-loser {
+  flex-grow: 1;
+}
+
+#cancel_new_game {
+  background-color: #bbb;
+}
+
+.flex-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.flex-col {
   display: flex;
   flex-direction: column;
-  background-color: blue;
-  flex-grow: 1;
-  justify-content: space-between;
+  align-items: center;
 }
 
 .card {
@@ -170,12 +334,12 @@ button:hover {
   flex-direction: column;
   justify-content: space-between;
   background: #fff;
-  border: 3px solid #bbb;
+  border: 3px solid var(--border);
   border-radius: 12px;
   padding: 0;
   margin-bottom: 12px;
   /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
-  box-shadow: 0 12px 0 #bbb;
+  box-shadow: 0 12px 0 var(--border);
   /* flex-grow: 1; */
   /* max-width: 400px; */
   width: 300px;
@@ -185,28 +349,54 @@ button:hover {
   display: flex;
   justify-content: space-between;
   padding: 14px 20px 14px 20px;
-  background-color: #bbb;
+  background-color: var(--border);
+  color: #fff;
 }
 
 .card_body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   padding: 20px;
 }
 
 .card_footer {
   padding: 20px;
-  background-color: #ddd;
+  background-color: var(--bar);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
+
+.deck_with_elo {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+/*
+.elo_change {
+  font-weight: bold;
+  color: var(--bar);
+}
+*/
 
 #random_games_container {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  margin: 30px 0;
+  gap: 20px;
 }
 
 .modal {
   display: none;
   position: fixed;
   overflow: scroll;
+  overflow-y: auto;
+  height: 90vh;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -218,53 +408,70 @@ fieldset {
   padding: 1rem;
 }
 
-.player-deck-row{
-  background: #fff;
-  border: 1px solid #ccc;
+.player-deck-row {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid var(--border);
   border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 22px;
+  background-color: var(--main);
+  box-shadow: 0 6px 0 var(--border);
+  flex-grow: 1;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.select-label {
+  margin-left: 20px;
 }
 
 textarea {
-  width: calc(100% - 25px);
-  height: 80px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  flex-grow: 1;
+  height: 100px;
+  padding: 16px;
+  border: 3px solid var(--border);
+  border-radius: 8px;
   resize: none;
+  margin: 6px 0 30px 0;
+  font-size: 1.2em;
 }
 
 /* small screens */
 @media (max-width: 800px) {
+  .site-header {margin: 20px 20px 0 20px;}
   .top-nav {
     flex-direction: column;
-    gap: 0.5rem;
-    align-items: flex-start;
+    gap: 6px;
+    padding: 22px 0 10px 0;
   }
   .nav-list {
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    justify-content: space-between;
   }
   /* .card {
     width: auto;
     max-width: 400px;
   } */
   body {
-    margin: 0 0 120px 0;
-    /*padding: 30px;*/
+    margin: 0 0 40px 0;
+    padding: 0;
   }
+  #random_games_container {
+    flex-direction: column; 
+    align-items: center; 
+    gap: 26px;
+  }
+  main {border: 0;}
+  button {flex-grow: 1;}
+  .site-footer {padding-left: 20px;}
+  .top-nav .logo {font-size: 1.6em;}
   #games_list {display: flex;}
   #games_table {display: none;}
-  #random_games_container {flex-direction: column;}
   #records_widescreen {display: none;}
   #records_mobile {display: block;}
-  #analysis_container {
-    width: 300px;
-  }
+  #analysis_container {width: 300px;}
   #analysis_results_widescreen {display: none;}
   #analysis_results_mobile {display: block;}
+  /*
   #deck_image {
     position: relative;
     transform: translate(0, 0);
@@ -272,4 +479,5 @@ textarea {
     padding-top: 20px;
     max-width: 300px; 
   }
+  */
 }

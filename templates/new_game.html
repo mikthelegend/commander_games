@@ -1,68 +1,75 @@
 <div id="add_new_game_card" class="card modal">
 
-    <h1>Log New Game</h1>
+    <h1>Add New Game</h1>
 
     <form method="post" action="{{ url_for('new_game') }}" id="new_game_form">
-        <div class="player-deck-row">
-            <label>
-                Winning player
-                <select name="winning_player" class="player_select" required>
-                    <option value="">Select a player</option>
-                    <!-- Options will be populated by JavaScript -->
-                </select>
-            </label><br>
-
-            <label>
-                Winning deck
-                <select name="winning_deck" class="deck_select" required>
-                    <option value="">Select a deck</option>
-                    <!-- Options will be populated by JavaScript -->
-                </select>
-            </label>
+        <h2>Date</h2>
+        <div class="flex-row">
+            <input id="date_input" type="date" name="date" />
         </div>
 
-        <fieldset>
-            <legend>Losing players & decks</legend>
+        <div>
+            <h2>Winner</h2>
+            <div class="player-deck-row">
+                <div class="selector-with-icon">
+                    <i class="fa fa-user fa-2x"></i>
+                    <select name="winning_player" class="player_select" required>
+                        <option value="">Select a player</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+                <div class="selector-with-icon">
+                    <i class="fa fa-book fa-2x"></i>
+                    <select name="winning_deck" class="deck_select" required>
+                        <option value="">Select a deck</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+            </div>
+        </div>
 
+        <div>
+            <h2>Losers</h2>
             <div id="losers">
                 <div class="player-deck-row">
-                    <label>
-                        Losing player
+                    <div class="selector-with-icon">
+                        <i class="fa fa-user fa-2x"></i>
                         <select name="losing_players[]" class="player_select" required>
                             <option value="">Select a player</option>
                             <!-- Options will be populated by JavaScript -->
                         </select>
-                    </label><br>
+                    </div>
 
-                    <label>
-                        Losing deck
+                    <div class="selector-with-icon">
+                        <i class="fa fa-book fa-2x"></i>
                         <select name="losing_decks[]" class="deck_select" required>
                             <option value="">Select a deck</option>
                             <!-- Options will be populated by JavaScript -->
                         </select>
-                    </label>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="controls">
-                <button type="button" id="add-loser">+</button>
-                <button type="button" id="remove-loser">-</button>
-            </div>
-        </fieldset><br>
-
-        <label>
-            Date
-            <input id="date_input" type="date" name="date" />
-        </label><br>
-
-        <label>
-            Notes
-            <textarea name="notes" rows="5" placeholder="Notes about the game"></textarea>
-        </label><br>
-
+        <div class="controls flex-row">
+            <button type="button" id="remove-loser">
+                <i class="fa fa-minus no-margin"></i>
+            </button>
+            <button type="button" id="add-loser">
+                <i class="fa fa-plus no-margin"></i>
+            </button>
+        </div>
+        <br>
         <div>
-            <button type="submit">Save game</button>
+            <h2>Notes</h2>
+            <div class="flex-row">
+                <textarea name="notes" rows="5" placeholder="What happened?"></textarea>
+            </div>
+        </div>
+
+        <div class="flex-row">
             <button type="button" id="cancel_new_game">Cancel</button>
+            <button type="submit">Save Game</button>
         </div>
     </form>
 </div>
