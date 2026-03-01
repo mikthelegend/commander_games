@@ -1,6 +1,5 @@
 import gspread
 from datetime import date, datetime
-from dateutil import parser
 from google.oauth2.service_account import Credentials
 import re
 from deck import Deck
