@@ -1,5 +1,6 @@
 import gspread
 from datetime import date, datetime
+from dateutil import parser
 from google.oauth2.service_account import Credentials
 import re
 from deck import Deck
@@ -87,7 +88,12 @@ all_players = get_all_players()
 def add_new_game(winning_player, losing_players, winning_deck, losing_decks, date, notes):
     print("Adding new game...")
 
-    date_object = datetime.strptime(date, "%Y-%m-%d").date()
+    try:
+        # The parse function handles a wide range of formats automatically
+        date_object = parser.parse(date)
+    except ValueError:
+        # If parsing fails, it's not a recognized format
+        return ValueError("Invalid date format. Please enter a valid date.")
 
     new_game = Game(
         game_id = str(len(all_games) + 1),
