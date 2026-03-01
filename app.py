@@ -11,7 +11,7 @@ import os
 flask_app = Flask(__name__)
 dash_app = Dash(__name__, server=flask_app, url_base_pathname='/plot/')
 
-# -------- Web Routes --------
+# -------- Page Routes --------
 
 @flask_app.route("/")
 def index():
@@ -20,6 +20,12 @@ def index():
 @flask_app.route("/games")
 def games():
     return render_template('games.html')
+
+@flask_app.route("/games/<game_id>")
+def view_game_page(game_id):
+    game = next((g for g in main.all_games if g.game_id == str(game_id)), None)
+    if game is None: return render_template("error.html", message="Game not found"), 404
+    return render_template("view_game.html", game=game)
 
 @flask_app.route("/stats")
 def stats():
@@ -69,6 +75,15 @@ def get_all_games():
 @flask_app.route("/get_all_players")
 def get_all_players():
     return main.all_players
+
+# API helper for a single game by ID (returns JSON)
+@flask_app.route("/get_game/<game_id>")
+def get_game(game_id):
+    """Return the game record matching game_id as JSON. 404 if not found."""
+    game = next((g for g in main.all_games if g.game_id == str(game_id)), None)
+    if game is None:
+        return {"error": "Game not found"}, 404
+    return game.json(), 200
 
 @flask_app.route("/plot_elos")
 def redirect_to_plot():

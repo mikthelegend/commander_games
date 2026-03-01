@@ -1,0 +1,23 @@
+<!-- filepath: /Users/mikailyildirim/Documents/Coding/Python/Commander Games/templates/view_game.html -->
+{% extends "base.html" %}
+
+{% block title %}Game Details - Commander Games{% endblock %}
+
+{% block content %}
+<div class="view-game-page">
+    <h1>Game Details</h1>
+    <div class="game-details">
+        <p><strong>Game ID:</strong> {{ game.game_id }}</p>
+        <p><strong>Date:</strong> {{ game.date }}</p>
+        <p><strong>Winning Player:</strong> {{ game.winning_player }}</p>
+        <p><strong>Winning Deck:</strong> {{ game.winning_deck.name }}</p>
+        <p><strong>Losing Players:</strong> {{ game.losing_players | join(', ') }}</p>
+        <p><strong>Losing Decks:</strong> {{ game.losing_decks | map(attribute='name') | join(', ') }}</p>
+        <p><strong>Notes:</strong> {{ game.notes }}</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='view_game.js') }}"></script>
+{% endblock %}
