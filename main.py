@@ -88,12 +88,7 @@ all_players = get_all_players()
 def add_new_game(winning_player, losing_players, winning_deck, losing_decks, date, notes):
     print("Adding new game...")
 
-    try:
-        # The parse function handles a wide range of formats automatically
-        date_object = parser.parse(date)
-    except ValueError:
-        # If parsing fails, it's not a recognized format
-        return ValueError("Invalid date format. Please enter a valid date.")
+    date_object = datetime.strptime(date, "%Y-%m-%d").date()
 
     new_game = Game(
         game_id = str(len(all_games) + 1),
@@ -101,7 +96,7 @@ def add_new_game(winning_player, losing_players, winning_deck, losing_decks, dat
         losing_players = losing_players,
         winning_deck = winning_deck,
         losing_decks = losing_decks,
-        date = date_object.strftime("%-d/%-m/%y"),
+        date = f"{date_object.day}/{date_object.month}/{date_object.year % 100}",
         notes = notes
     )
 
