@@ -246,25 +246,6 @@ input[type=number] {
   width: 50px;
 }
 
-#stats_container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-#records_widescreen {
-  display: block;
-}
-
-#records_mobile {
-  display: none;
-}
-
-#analysis_results_mobile {
-  display: none;
-}
-
 #deck_image {
   display: none; 
   /*
@@ -280,6 +261,7 @@ input[type=number] {
   align-self: center;
 }
 
+/* 
 .block {
   display: flex;
   flex-direction: column;
@@ -290,7 +272,7 @@ input[type=number] {
   border: 3px solid var(--border);
   border-radius: 12px;
   box-shadow: 0 16px 0 var(--border);
-}
+} */
 
 .site-header {
   display: flex;
@@ -341,21 +323,12 @@ input[type=number] {
   color: #fff;
 }
 
-#games_table {
-  width: 100%;
-}
-
 #games_list {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   margin-top: 20px;
   gap: 1em;
-}
-
-#add_new_game_card {
-  width: 290px;
-  padding: 20px;
 }
 
 #view_game_page {
@@ -540,12 +513,6 @@ textarea {
   button {flex-grow: 1;}
   .site-footer {padding-left: 20px;}
   .top-nav .logo {font-size: 1.6em;}
-  #games_table {display: none;}
-  #records_widescreen {display: none;}
-  #records_mobile {display: block;}
-  #analysis_container {width: 300px;}
-  #analysis_results_widescreen {display: none;}
-  #analysis_results_mobile {display: block;}
   #decks_page_list {height: calc(100vh - 200px);}
   #deck_details {
     display: none;
