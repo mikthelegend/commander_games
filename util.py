@@ -16,8 +16,8 @@ def load_data():
     try:
         with open('data.json', 'r') as f:
             data = json.load(f)
-            games = [Game(**game_data) for game_data in data.get("games", [])]
-            decks = [Deck(**deck_data) for deck_data in data.get("decks", [])]
+            games = [Game.from_json(game_data) for game_data in data.get("games", [])]
+            decks = [Deck.from_json(deck_data) for deck_data in data.get("decks", [])]
             return {"games": games, "decks": decks}
     except FileNotFoundError:
         return {}

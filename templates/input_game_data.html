@@ -1,0 +1,74 @@
+<div style="display: flex; justify-content: space-between;">
+    <span><h2>Date</h2></span>
+    <span><h2>Game ID</h2></span>
+</div>
+<div class="flex-row">
+    <input id="date_input" type="date" name="date" />
+    <input id="game_id_display" name="game_id" class="bubble" type="number" readonly onfocus="this.blur"></input>
+</div>
+
+<div>
+    <h2>Winner</h2>
+    <div class="player-deck-row">
+        <div class="selector-with-icon">
+            <i class="fa fa-user fa-2x"></i>
+            <select name="winning_player" class="player_select" required>
+                <option value="">Select a player</option>
+                <!-- Options will be populated by JavaScript -->
+            </select>
+        </div>
+        <div class="selector-with-icon">
+            <i class="fa fa-book fa-2x"></i>
+            <select name="winning_deck" class="deck_select" required>
+                <option value="">Select a deck</option>
+                <!-- Options will be populated by JavaScript -->
+            </select>
+        </div>
+    </div>
+</div>
+
+<div>
+    <h2>Losers</h2>
+    <div id="losers">
+        <div class="player-deck-row">
+            <div class="selector-with-icon">
+                <i class="fa fa-user fa-2x"></i>
+                <select name="losing_players[]" class="player_select" required>
+                    <option value="">Select a player</option>
+                    <!-- Options will be populated by JavaScript -->
+                </select>
+            </div>
+
+            <div class="selector-with-icon">
+                <i class="fa fa-book fa-2x"></i>
+                <select name="losing_decks[]" class="deck_select" required>
+                    <option value="">Select a deck</option>
+                    <!-- Options will be populated by JavaScript -->
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="controls flex-row">
+    <button type="button" id="remove-loser">
+        <i class="fa fa-minus no-margin"></i>
+    </button>
+    <button type="button" id="add-loser">
+        <i class="fa fa-plus no-margin"></i>
+    </button>
+</div>
+<br>
+<div>
+    <h2>Notes</h2>
+    <div class="flex-row">
+        <textarea name="notes" rows="5" placeholder="What happened?"></textarea>
+    </div>
+</div>
+
+<div class="flex-row">
+    <button type="button" id="cancel_button">Cancel</button>
+    <button type="submit">Save Game</button>
+</div>
+
+<script src="{{ url_for('static', filename='input_game_data.js') }}"></script>

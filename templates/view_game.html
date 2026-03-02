@@ -3,35 +3,38 @@
 {% block title %}Game Details - Commander Games{% endblock %}
 
 {% block content %}
-<div class="view-game-page">
-    <h1>Game Details</h1>
+<div id="view_game_page">
     <div id="view_game_block">
-        <button id="edit_game_button">Edit Game</button>
-        <p><strong>Game ID:</strong> {{ game.game_id }}</p>
+        <h1>Game Details</h1>
+        <div class="flex-row">
+            <button id="back_to_games_button">Back</button>
+            <button id="edit_game_button">Edit Game</button>
+            <button id="delete_game_button" class="danger">Delete Game</button>
+        </div>
+        <p id="game_id"><strong>Game ID:</strong> {{ game.game_id }}</p>
         <p><strong>Date:</strong> {{ game.date }}</p>
-        <p><strong>Winning Player:</strong> {{ game.winning_player }}</p>
-        <p><strong>Winning Deck:</strong> {{ game.winning_deck.name }}</p>
-        <p><strong>Losing Players:</strong> {{ game.losing_players | join(', ') }}</p>
-        <p><strong>Losing Decks:</strong> {{ game.losing_decks | map(attribute='name') | join(', ') }}</p>
+        <p><strong>Winner:</strong> {{ game.winner.pilot }} - {{ game.winner.deck_name }}</p>
+        <p><strong>Losers:</strong></p>
+        <ul>
+        {% for loser in game.losers %}
+            <li>{{ loser.pilot }} - {{ loser.deck_name }}</li>
+        {% endfor %}
+        </ul>
         <p><strong>Notes:</strong> {{ game.notes }}</p>
     </div>
-    <div id="edit_game_form" style="display: none;">
-        <h2>Edit Game</h2>
-        <form id="game_edit_form">
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="date" value="{{ game.date }}" required><br><br>
-            <label for="winning_player">Winning Player:</label>
-            <input type="text" id="winning_player" name="winning_player" value="{{ game.winning_player }}" required><br><br>
-            <label for="winning_deck">Winning Deck:</label>
-            <input type="text" id="winning_deck" name="winning_deck" value="{{ game.winning_deck.name }}" required><br><br>
-            <label for="losing_players">Losing Players (comma-separated):</label>
-            <input type="text" id="losing_players" name="losing_players" value="{{ game.losing_players | join(', ') }}" required><br><br>
-            <label for="losing_decks">Losing Decks (comma-separated):</label>
-            <input type="text" id="losing_decks" name="losing_decks" value="{{ game.losing_decks | map(attribute='name') | join(', ') }}" required><br><br>
-            <label for="notes">Notes:</label><br>
-            <textarea id="notes" name="notes">{{ game.notes }}</textarea><br><br>
-            <button type="submit">Save Changes</button>
+
+    <div id="input_game_details" style="display: none;">
+
+        <h1>Edit Game</h1>
+
+        <form method="post" action="{{ url_for('edit_game') }}" id="new_game_form">
+            {% include "input_game_data.html" %}
         </form>
+    </div>
+</div>
+<div class="please_wait">
+    <i class="fa fa-rotate-right fa-spin"></i>
+    &nbsp; Please wait...
 </div>
 {% endblock %}
 

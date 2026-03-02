@@ -1,4 +1,7 @@
 function generateGameCard(game) {
+    const card = document.createElement("div");
+    card.className = "card";
+
     const split = game.date.split("/");
     const date = new Date('20' + split[2], split[1]-1, split[0])
     const options = {
@@ -7,7 +10,7 @@ function generateGameCard(game) {
         month: "short",
         year: "numeric",
     }
-    return `
+    card.innerHTML = `
             <div class="card_header">
                 <div>
                     ${date.toLocaleDateString("en-AU", options)}
@@ -19,24 +22,26 @@ function generateGameCard(game) {
             <div class="card_body">
                 <div>
                     <div>
-                        <i class="fa fa-arrow-up"></i><b>Winner:</b> &nbsp; ${game.winning_player}
+                        <i class="fa fa-arrow-up"></i><b>Winner:</b> &nbsp;
                     </div>
                     <div class="deck_with_elo">
-                        ${game.winning_deck.name}
+                        <span>${game.winner.pilot}</span> - &nbsp;
+                        <span>${game.winner.deck_name}</span>
                         <span class="elo_change">
-                            <i class="fa-solid fa-angles-up"></i>${(game.winning_deck.elo_after - game.winning_deck.elo_before < 0 ? "" : "+") + Math.round(game.winning_deck.elo_after - game.winning_deck.elo_before)}
+                            <i class="fa-solid fa-angles-up"></i>${(game.winner.elo_after - game.winner.elo_before < 0 ? "" : "+") + Math.round(game.winner.elo_after - game.winner.elo_before)}
                         </span>
                     </div>
                 </div>
                 <div>
                     <div>
-                        <i class="fa fa-arrow-down"></i><b>Losers:</b> &nbsp; ${game.losing_players.join(", ")}
+                        <i class="fa fa-arrow-down"></i><b>Losers:</b> &nbsp;
                     </div>
-                    ${game.losing_decks.map(deck => `
+                    ${game.losers.map(loser => `
                         <div class="deck_with_elo">
-                            <span>${deck.name}</span>
+                            <span>${loser.pilot}</span> - &nbsp;
+                            <span>${loser.deck_name}</span>
                             <span class="elo_change">
-                                ${(deck.elo_after - deck.elo_before < 0 ? "" : "+") + Math.round(deck.elo_after - deck.elo_before)}
+                                ${(loser.elo_after - loser.elo_before < 0 ? "" : "+") + Math.round(loser.elo_after - loser.elo_before)}
                             </span>
                         </div>
                     `).join("")}
@@ -46,4 +51,10 @@ function generateGameCard(game) {
                 ${game.notes}
             </div>
         `;
+
+    card.addEventListener("click", () => {
+        window.location.href = `/games/${game.game_id}`;
+    });
+
+    return card;
 }

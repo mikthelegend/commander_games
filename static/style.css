@@ -39,6 +39,7 @@
   --bg: #BAA898;
   --main: #EEE0CB;
   --bar: #839788;
+  --danger: #E07A5F;
 }
 
 html {
@@ -167,6 +168,7 @@ select::picker-icon {
   color: var(--border);
 }
 
+
 .player_select, .deck_select {
   max-width: 200px;
 }
@@ -192,6 +194,24 @@ input {
   flex-grow: 1;
   font-size: 1.2em;
   margin-bottom: 10px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.bubble {
+  font-size: 1.1em;
+  width: 50px;
 }
 
 #stats_container {
@@ -294,10 +314,9 @@ input {
 }
 
 #games_list {
-  display: none;
-  align-items: center;
+  display: flex;
   justify-content: center;
-  flex-direction: column;
+  flex-wrap: wrap;
   margin-top: 20px;
   gap: 1em;
 }
@@ -305,6 +324,16 @@ input {
 #add_new_game_card {
   width: 290px;
   padding: 20px;
+}
+
+#view_game_page {
+  display: flex;
+  justify-content: center;
+}
+
+#view_game_block {
+  max-width: 600px;
+  width: 100%;
 }
 
 #remove-loser, #add-loser {
@@ -320,7 +349,7 @@ input {
   justify-content: center;
   gap: 10px;
   align-items: center;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 }
 
 .flex-col {
@@ -342,7 +371,7 @@ input {
   box-shadow: 0 12px 0 var(--border);
   /* flex-grow: 1; */
   /* max-width: 400px; */
-  width: 300px;
+  width: 400px;
 }
 
 .card_header {
@@ -436,6 +465,11 @@ textarea {
   font-size: 1.2em;
 }
 
+.danger {
+  background-color: var(--danger);
+  color: white;
+}
+
 /* small screens */
 @media (max-width: 800px) {
   .site-header {margin: 20px 20px 0 20px;}
@@ -464,7 +498,6 @@ textarea {
   button {flex-grow: 1;}
   .site-footer {padding-left: 20px;}
   .top-nav .logo {font-size: 1.6em;}
-  #games_list {display: flex;}
   #games_table {display: none;}
   #records_widescreen {display: none;}
   #records_mobile {display: block;}

@@ -13,13 +13,11 @@ function loadRandomGames() {
             const random_games = random_indexes.map(index => data[index]);
             
             // After fetching the random games, populate the cards
-            document.getElementById('random_games_container').innerHTML = '';
+            const container = document.getElementById('random_games_container');
+            container.innerHTML = '';
             random_games.forEach(random_game => {
-                const randomGameCard = document.createElement('div');
-                randomGameCard.className = 'card';
-                randomGameCard.innerHTML = generateGameCard(random_game);
-
-                document.getElementById('random_games_container').appendChild(randomGameCard);
+                const randomGameCard = generateGameCard(random_game);
+                container.appendChild(randomGameCard);
             });
         });
 }

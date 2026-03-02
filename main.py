@@ -25,7 +25,7 @@ def get_all_decks():
     print("Fetching all decks...")
     decks = []
     for row in sheet.worksheet("Stats").get_all_values()[1:]:
-        deck = Deck(row[0])
+        deck = Deck(*row[0:5])
         decks.append(deck)
     return decks
 
@@ -37,21 +37,6 @@ def get_deck_by_name(deck_name):
             return deck
     return None
 
-# Creates an array of deck names from a string that may contain quoted names with commas.
-def extract_decks_from_string(list_of_deck_names):
-    final_array = []
-
-    first_split = list_of_deck_names.split(", ")
-    for item in first_split:
-        if '"' not in item:
-            final_array.append(item)
-
-    quote_decks = list_of_deck_names.split('"')
-    for i in range(1, len(quote_decks), 2):
-        final_array.append(quote_decks[i])
-
-    return final_array
-
 # Converts an array of deck names into a string, quoting names that contain commas.
 def convert_deck_array_to_string(deck_array):
     final_string = ""
@@ -62,12 +47,12 @@ def convert_deck_array_to_string(deck_array):
             final_string += f"{deck}, "
     return final_string[:-2]  # Remove trailing comma and space
 
-# Fetches all games from the "Games" worksheet and returns them as a list of dictionaries.
+# Fetches all games from the "Games" worksheet and returns them as a list of Game objects.
 def get_all_games():
     print("Fetching all games...")
     games = []
     for row in sheet.worksheet("Games").get_all_values()[1:]:
-        game = Game(row[0], row[1], extract_decks_from_string(row[2]), row[3], extract_decks_from_string(row[4]), row[5], row[6])
+        game = Game.from_sheet(*row[0:7])
         games.append(game)
     return games
 
@@ -76,21 +61,21 @@ all_games = get_all_games()
 def get_all_players():
     players = set()
     for game in all_games:
-        players.add(game.winning_player)
-        for loser in game.losing_players:
-            players.add(loser)
+        players.add(game.winner.pilot)
+        for loser in game.losers:
+            players.add(loser.pilot)
     return list(players)
 
 all_players = get_all_players()
 
-# Adds a new game to the all_games list and updates the "Games" table in the "Games" worksheet.
-def add_new_game(winning_player, losing_players, winning_deck, losing_decks, date, notes):
-    print("Adding new game...")
+# Adds a new game to the "Games" table in the "Games" worksheet.
+def add_new_game(game_id, winning_player, losing_players, winning_deck, losing_decks, date, notes):
+    print(f"Adding new game with ID {game_id}...")
 
     date_object = datetime.strptime(date, "%Y-%m-%d").date()
 
-    new_game = Game(
-        game_id = str(len(all_games) + 1),
+    new_game = Game.verbose_init(
+        game_id = game_id,
         winning_player = winning_player,
         losing_players = losing_players,
         winning_deck = winning_deck,
@@ -102,10 +87,10 @@ def add_new_game(winning_player, losing_players, winning_deck, losing_decks, dat
     games_worksheet = sheet.worksheet("Games")
     row_data = [
         new_game.game_id,
-        new_game.winning_player,
-        ", ".join(new_game.losing_players),
-        new_game.winning_deck.name,
-        convert_deck_array_to_string([deck.name for deck in new_game.losing_decks]),
+        new_game.winner.pilot,
+        ", ".join([loser.pilot for loser in new_game.losers]),
+        new_game.winner.deck_name,
+        convert_deck_array_to_string([loser.deck_name for loser in new_game.losers]),
         new_game.date,
         new_game.notes
     ]
@@ -132,55 +117,111 @@ def gspread_append_row(worksheet, row_data):
         value_input_option="USER_ENTERED"
     )
 
+# Updates an existing game the "Games" table in the "Games" worksheet.
+def update_game(game_id, winning_player, losing_players, winning_deck, losing_decks, date, notes):
+    print(f"Updating game {game_id}...")
+
+    date_object = datetime.strptime(date, "%Y-%m-%d").date()
+
+    updated_game = Game.verbose_init(
+        game_id = game_id,
+        winning_player = winning_player,
+        losing_players = losing_players,
+        winning_deck = winning_deck,
+        losing_decks = losing_decks,
+        date = f"{date_object.day}/{date_object.month}/{date_object.year % 100}",
+        notes = notes
+    )
+
+    games_worksheet = sheet.worksheet("Games")
+    row_data = [
+        updated_game.game_id,
+        updated_game.winner.pilot,
+        ", ".join([loser.pilot for loser in updated_game.losers]),
+        updated_game.winner.deck_name,
+        convert_deck_array_to_string([loser.deck_name for loser in updated_game.losers]),
+        updated_game.date,
+        updated_game.notes
+    ]
+
+    cell = games_worksheet.find(game_id)
+    if cell is None:
+        print(f"Game with ID {game_id} not found.")
+        return
+
+    row_number = cell.row
+    games_worksheet.update(
+        f"A{row_number}:{chr(64 + len(row_data))}{row_number}",
+        [row_data],
+        value_input_option="USER_ENTERED"
+    )
+
+    print(f"Game {game_id} updated successfully.")
+
+# Deletes a game from the "Games" table in the "Games" worksheet.
+def delete_game(game_id):
+    print(f"Deleting game {game_id}...")
+
+    games_worksheet = sheet.worksheet("Games")
+    cell = games_worksheet.find(game_id)
+    if cell is None:
+        print(f"Game with ID {game_id} not found.")
+        return
+
+    row_number = cell.row
+    games_worksheet.delete_rows(row_number)
+
+    print(f"Game {game_id} deleted successfully.")
+
 # Calculates the entire ELO history for all decks based on the recorded games.
 def calculate_elos():
     print("Calculating ELOs...")
     for game in all_games:
 
         # Obtain Winning and Losing Decks
-        winning_deck = get_deck_by_name(game.winning_deck.name)
+        winning_deck_object = get_deck_by_name(game.winner.deck_name)
 
-        if winning_deck is None:
-            print(f"Deck {game.winning_deck.name} not found in all_decks")
+        if winning_deck_object is None:
+            print(f"Deck {game.winner.deck_name} not found in all_decks")
             return
 
         losing_decks = []
-        for losing_deck in game.losing_decks:
-            losing_deck = get_deck_by_name(losing_deck.name)
+        for loser in game.losers:
+            loser_deck_object = get_deck_by_name(loser.deck_name)
 
-            if losing_deck is None:
-                print(f"Deck {losing_deck.name} not found in all_decks")
+            if loser_deck_object is None:
+                print(f"Deck {loser.deck_name} not found in all_decks")
                 return
 
-            losing_decks.append(losing_deck)
+            losing_decks.append(loser_deck_object)
 
         # Calculate changes in ELO from this game
         winner_elo_change = 0
 
-        for losing_deck in losing_decks:
+        for losing_deck_object in losing_decks:
             # Winner's elo changes for each losing deck
-            winner_elo_change += winning_deck.k * (1 - winning_deck.odds_of_winning_against(losing_deck))
+            winner_elo_change += winning_deck_object.k * (1 - winning_deck_object.odds_of_winning_against(losing_deck_object))
         
             # Loser's elo changes for the winning deck
-            loser_elo_change = losing_deck.k * (0 - losing_deck.odds_of_winning_against(winning_deck))
+            loser_elo_change = losing_deck_object.k * (0 - losing_deck_object.odds_of_winning_against(winning_deck_object))
 
             for other_losing_deck in losing_decks:
-                if other_losing_deck == losing_deck:
+                if other_losing_deck == losing_deck_object:
                     continue
                 # Loser's elo changes for each other losing deck
-                loser_elo_change += losing_deck.k * (0.5 - losing_deck.odds_of_winning_against(other_losing_deck))
+                loser_elo_change += losing_deck_object.k * (0.5 - losing_deck_object.odds_of_winning_against(other_losing_deck))
             
             # Log ELO change for the losing deck in the game record
-            game.losing_decks[losing_decks.index(losing_deck)].log_elo_change(losing_deck.get_current_elo(), loser_elo_change)
+            game.losers[losing_decks.index(losing_deck_object)].log_elo_change(losing_deck_object.get_current_elo(), loser_elo_change)
             
             # Update the losing deck's ELO
-            losing_deck.add_elo(losing_deck.get_current_elo() + loser_elo_change, game.date, game.game_id)
+            losing_deck_object.add_elo(losing_deck_object.get_current_elo() + loser_elo_change, game.date, game.game_id)
 
         # Log ELO change for the winning deck in the game record
-        game.winning_deck.log_elo_change(winning_deck.get_current_elo(), winner_elo_change)
+        game.winner.log_elo_change(winning_deck_object.get_current_elo(), winner_elo_change)
 
         #Update the winning deck's ELO
-        winning_deck.add_elo(winning_deck.get_current_elo() + winner_elo_change, game.date, game.game_id)
+        winning_deck_object.add_elo(winning_deck_object.get_current_elo() + winner_elo_change, game.date, game.game_id)
 
 calculate_elos()
 

@@ -15,18 +15,14 @@
             Refresh
         </button>
     </div>
-    {% include "new_game.html" %}
-    <table id="games_table" class="games-table">
-        <tr>
-            <th scope="col">Game ID</th>
-            <th scope="col">Winning Player</th>
-            <th scope="col">Losing Players</th>
-            <th scope="col">Winning Deck</th>
-            <th scope="col">Losing Decks</th>
-            <th scope="col">Date</th>
-            <th scope="col">Notes</th>
-        </tr>
-    </table>
+    <div id="input_game_details" class="card modal">
+
+        <h1>Add New Game</h1>
+
+        <form method="post" action="{{ url_for('new_game') }}" id="new_game_form">
+            {% include "input_game_data.html" %}
+        </form>
+    </div>
     <div id="games_list">
         <!-- Game entries will be populated here by static/games.js -->
     </div>

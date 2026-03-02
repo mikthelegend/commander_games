@@ -39,40 +39,40 @@ def analyze_deck(deck_name):
     opponent_decks_when_win = {}
 
     for game in main.all_games:
-        if game.winning_deck.name == deck_name:
+        if game.winner.deck_name == deck_name:
             games_played += 1
             wins += 1 
 
-            opponent_elos = [deck.elo_before for deck in game.losing_decks]
+            opponent_elos = [loser.elo_before for loser in game.losers]
             avrg_opponent_elo += sum(opponent_elos)
             avrg_opponent_elo_when_win += sum(opponent_elos)
-            num_opponents += len(game.losing_decks)
-            num_opponents_when_win += len(game.losing_decks)
+            num_opponents += len(game.losers)
+            num_opponents_when_win += len(game.losers)
 
-            for deck in game.losing_decks:
-                if deck.name not in opponent_decks:
-                    opponent_decks[deck.name] = 0
-                opponent_decks[deck.name] += 1
+            for loser in game.losers:
+                if loser.deck_name not in opponent_decks:
+                    opponent_decks[loser.deck_name] = 0
+                opponent_decks[loser.deck_name] += 1
 
-                if deck.name not in opponent_decks_when_win:
-                    opponent_decks_when_win[deck.name] = 0
-                opponent_decks_when_win[deck.name] += 1
+                if loser.deck_name not in opponent_decks_when_win:
+                    opponent_decks_when_win[loser.deck_name] = 0
+                opponent_decks_when_win[loser.deck_name] += 1
 
-        elif deck_name in [deck.name for deck in game.losing_decks]:
+        elif deck_name in [loser.deck_name for loser in game.losers]:
             games_played += 1
 
-            opponents_elos = [game.winning_deck.elo_before] + [deck.elo_before for deck in game.losing_decks if deck.name != deck_name]
+            opponents_elos = [game.winner.elo_before] + [loser.elo_before for loser in game.losers if loser.deck_name != deck_name]
             avrg_opponent_elo += sum(opponents_elos)
             avrg_opponent_elo_when_lose += sum(opponents_elos)
-            num_opponents += len(game.losing_decks)
-            num_opponents_when_lose += len(game.losing_decks)
+            num_opponents += len(game.losers)
+            num_opponents_when_lose += len(game.losers)
 
-            for deck in game.losing_decks + [game.winning_deck]:
-                if deck.name == deck_name:
+            for loser in game.losers + [game.winner]:
+                if loser.deck_name == deck_name:
                     continue
-                if deck.name not in opponent_decks:
-                    opponent_decks[deck.name] = 0
-                opponent_decks[deck.name] += 1
+                if loser.deck_name not in opponent_decks:
+                    opponent_decks[loser.deck_name] = 0
+                opponent_decks[loser.deck_name] += 1
 
     stats = {
         "deck_name": deck_name,

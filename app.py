@@ -85,6 +85,23 @@ def get_game(game_id):
         return {"error": "Game not found"}, 404
     return game.json(), 200
 
+# API helper for a single game by ID (returns JSON)
+@flask_app.route("/edit_game", methods=['POST'])
+def edit_game():
+    data = json.loads(request.data)
+    print(f"Received edit game data: {data}")
+    main.update_game(**data)
+    perform_elo_update()  # Recalculate ELOs after editing the game
+    return request.data, 200
+
+# API helper to delete a game by ID
+@flask_app.route("/delete_game/<game_id>", methods=['DELETE'])
+def delete_game(game_id):
+    print(f"Received request to delete game with ID: {game_id}")
+    main.delete_game(game_id)
+    perform_elo_update()  # Recalculate ELOs after deleting the game
+    return {"message": f"Game {game_id} deleted successfully"}, 200
+
 @flask_app.route("/plot_elos")
 def redirect_to_plot():
     return flask_app.redirect("/plot/")

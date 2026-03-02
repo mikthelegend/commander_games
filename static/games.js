@@ -1,37 +1,15 @@
-console.log("Populating games table...");
-
 fetch('/get_all_games')
     .then(response => response.json())
     .then(data => {
-        const table = document.getElementById("games_table");
         data.sort((a, b) => b.game_id - a.game_id).forEach(game => {
-            // Populate table rows
-            const row = table.insertRow();
-            const cell1 = row.insertCell(0);
-            const cell2 = row.insertCell(1);
-            const cell3 = row.insertCell(2);
-            const cell4 = row.insertCell(3);
-            const cell5 = row.insertCell(4);
-            const cell6 = row.insertCell(5);
-            const cell7 = row.insertCell(6);
-            cell1.innerHTML = game.game_id;
-            cell2.innerHTML = game.winning_player;
-            cell3.innerHTML = game.losing_players.join(", ");
-            cell4.innerHTML = `${game.winning_deck.name}<br>(${Math.round(game.winning_deck.elo_before)} → ${Math.round(game.winning_deck.elo_after)})`;
-            cell5.innerHTML = game.losing_decks.map(deck => `${deck.name}<br>(${Math.round(deck.elo_before)} → ${Math.round(deck.elo_after)})`).join("<br><br>");
-            cell6.innerHTML = game.date;
-            cell7.innerHTML = game.notes;
 
-            // Populate game list for small screens.
+            // Populate game list
             const gameList = document.getElementById("games_list");
-            const listItem = document.createElement("div");
-            listItem.className = "card";
-            listItem.innerHTML = generateGameCard(game);
-            listItem.addEventListener("click", () => {
-                window.location.href = `/games/${game.game_id}`;
-            });
+            const listItem = generateGameCard(game);
             gameList.appendChild(listItem);
         });
+
+        document.getElementById('game_id_display').value = Number(data[0].game_id) + 1;
     });
 
 document.getElementById("refresh_games_button").addEventListener("click", () => {
@@ -41,4 +19,12 @@ document.getElementById("refresh_games_button").addEventListener("click", () => 
     fetch('/update').then(() => {
         location.reload();
     }); 
+});
+
+const new_game_button = document.getElementById('add_new_game_button');
+
+new_game_button.addEventListener('click', () => {
+    document.getElementById('input_game_details').style.display = 'block';
+    document.getElementById('date_input').valueAsDate = new Date();
+    console.log("New game form displayed");
 });

@@ -1,18 +1,11 @@
 
-const new_game_button = document.getElementById('add_new_game_button');
-
-new_game_button.addEventListener('click', () => {
-    document.getElementById('add_new_game_card').style.display = 'block';
-    document.getElementById('date_input').valueAsDate = new Date();
-    console.log("New game form displayed");
-});
-
+const formElement = document.getElementsByTagName('form')[0];
 const losersContainer = document.getElementById('losers');
 const addBtn = document.getElementById('add-loser');
 const remBtn = document.getElementById('remove-loser');
 
 // Add event listener to the "Add Loser" button
-addBtn.addEventListener('click', () => {
+function addLoserRow() {
     const new_loser_row = losersContainer.firstElementChild.cloneNode(true);
 
     new_loser_row.querySelectorAll('select').forEach(select => {
@@ -20,7 +13,8 @@ addBtn.addEventListener('click', () => {
     });
 
     losersContainer.appendChild(new_loser_row);
-});
+}
+addBtn.addEventListener('click', addLoserRow);
 
 // Add event listener to the "Remove Loser" button
 remBtn.addEventListener('click', () => {
@@ -30,9 +24,10 @@ remBtn.addEventListener('click', () => {
     }
 });
 
-cancelBtn = document.getElementById('cancel_new_game');
+cancelBtn = document.getElementById('cancel_button');
 cancelBtn.addEventListener('click', () => {
-    document.getElementById('add_new_game_card').style.display = 'none';
+    formElement.reset();
+    location.reload();
 });
 
 // Fetch players and decks to populate the dropdowns
@@ -65,7 +60,6 @@ fetch('/get_all_decks')
     });
 
 // Handle form submission
-const formElement = document.getElementById('new_game_form')
 formElement.addEventListener('submit', function (event) {
     event.preventDefault();
     document.querySelectorAll('.please_wait').forEach(el => {
