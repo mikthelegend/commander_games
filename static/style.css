@@ -481,10 +481,10 @@ textarea {
   .nav-list {
     justify-content: space-between;
   }
-  /* .card {
+  .card {
     width: auto;
     max-width: 400px;
-  } */
+  }
   body {
     margin: 0 0 40px 0;
     padding: 0;
