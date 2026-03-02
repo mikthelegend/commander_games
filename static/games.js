@@ -27,6 +27,9 @@ fetch('/get_all_games')
             const listItem = document.createElement("div");
             listItem.className = "card";
             listItem.innerHTML = generateGameCard(game);
+            listItem.addEventListener("click", () => {
+                window.location.href = `/games/${game.game_id}`;
+            });
             gameList.appendChild(listItem);
         });
     });

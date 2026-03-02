@@ -1,4 +1,3 @@
-<!-- filepath: /Users/mikailyildirim/Documents/Coding/Python/Commander Games/templates/view_game.html -->
 {% extends "base.html" %}
 
 {% block title %}Game Details - Commander Games{% endblock %}
@@ -6,7 +5,8 @@
 {% block content %}
 <div class="view-game-page">
     <h1>Game Details</h1>
-    <div class="game-details">
+    <div id="view_game_block">
+        <button id="edit_game_button">Edit Game</button>
         <p><strong>Game ID:</strong> {{ game.game_id }}</p>
         <p><strong>Date:</strong> {{ game.date }}</p>
         <p><strong>Winning Player:</strong> {{ game.winning_player }}</p>
@@ -15,6 +15,23 @@
         <p><strong>Losing Decks:</strong> {{ game.losing_decks | map(attribute='name') | join(', ') }}</p>
         <p><strong>Notes:</strong> {{ game.notes }}</p>
     </div>
+    <div id="edit_game_form" style="display: none;">
+        <h2>Edit Game</h2>
+        <form id="game_edit_form">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" value="{{ game.date }}" required><br><br>
+            <label for="winning_player">Winning Player:</label>
+            <input type="text" id="winning_player" name="winning_player" value="{{ game.winning_player }}" required><br><br>
+            <label for="winning_deck">Winning Deck:</label>
+            <input type="text" id="winning_deck" name="winning_deck" value="{{ game.winning_deck.name }}" required><br><br>
+            <label for="losing_players">Losing Players (comma-separated):</label>
+            <input type="text" id="losing_players" name="losing_players" value="{{ game.losing_players | join(', ') }}" required><br><br>
+            <label for="losing_decks">Losing Decks (comma-separated):</label>
+            <input type="text" id="losing_decks" name="losing_decks" value="{{ game.losing_decks | map(attribute='name') | join(', ') }}" required><br><br>
+            <label for="notes">Notes:</label><br>
+            <textarea id="notes" name="notes">{{ game.notes }}</textarea><br><br>
+            <button type="submit">Save Changes</button>
+        </form>
 </div>
 {% endblock %}
 
