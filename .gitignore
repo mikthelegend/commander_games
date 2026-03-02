@@ -49,3 +49,4 @@ coverage.xml
 *.sqlite3
 credentials.json
 data.json
+data_backups/
