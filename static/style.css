@@ -53,12 +53,12 @@ body {
 }
 
 main {
-  padding: 30px 34px;
+  padding: 30px 25px;
   background-color: var(--main);
   border: 3px solid var(--border);
   border-radius: 12px;
   margin-top: 20px;
-  margin-bottom: 60px;
+  margin-bottom: 0px;
 }
 
 h2 {
@@ -89,10 +89,6 @@ h2 {
     3px 0px 0 #000,
     0px -3px 0 #000,
     0px 3px 0 #000;
-}
-
-footer {
-  margin-top: 30px;
 }
 
 table {
@@ -211,6 +207,41 @@ input[type=number] {
 }
 
 .bubble {
+  padding: 10px;
+  border: 3px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--main);
+  flex-grow: 1;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+#decks_page_list {
+  height: 100%;
+  padding-right: 20px;
+  overflow: scroll;
+  flex-grow: 1;
+}
+
+#decks_page {
+  height: calc(100vh - 200px);
+  display: flex;;
+}
+
+#deck_details {
+  width: 650px;
+  padding: 10px;
+  border: 3px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--main);
+  font-size: 1em;
+  margin-bottom: 10px;
+  overflow: scroll;
+}
+
+#back_to_list_button {display: none;}
+
+#game_id_display {
   font-size: 1.1em;
   width: 50px;
 }
@@ -497,7 +528,7 @@ textarea {
     max-width: 400px;
   }
   body {
-    margin: 0 0 40px 0;
+    margin: 0 0 0 0;
     padding: 0;
   }
   #random_games_container, #elo_records_container {
@@ -515,13 +546,14 @@ textarea {
   #analysis_container {width: 300px;}
   #analysis_results_widescreen {display: none;}
   #analysis_results_mobile {display: block;}
-  /*
-  #deck_image {
-    position: relative;
-    transform: translate(0, 0);
-    left: 0;
-    padding-top: 20px;
-    max-width: 300px; 
+  #decks_page_list {height: calc(100vh - 200px);}
+  #deck_details {
+    display: none;
+    padding: 0;
+    border: none;
   }
-  */
+  #back_to_list_button {
+    display: block;
+    width: 100%;
+  }
 }

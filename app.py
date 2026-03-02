@@ -31,6 +31,10 @@ def view_game_page(game_id):
 def stats():
     return render_template('stats.html')
 
+@flask_app.route("/decks")
+def decks():
+    return render_template('decks.html')
+
 # -------- API Routes --------
 
 @flask_app.route("/health")
