@@ -4,31 +4,34 @@
 
 {% block content %}
 <div class="games-page">
-    <h1>Games</h1>
-    <div class="flex-row">
-        <button id="add_new_game_button">
-            <i class="fa fa-plus"></i>
-            Add New Game
-        </button>
-        <button id="refresh_games_button">
-            <i class="fa fa-rotate-right"></i>
-            Refresh
-        </button>
+    <div id="games_list_container">
+        <h1>Games</h1>
+        <div class="flex-row">
+            <button id="add_new_game_button">
+                <i class="fa fa-plus"></i>
+                Add New Game
+            </button>
+            <button id="refresh_games_button">
+                <i class="fa fa-rotate-right"></i>
+                Refresh
+            </button>
+        </div>
+        <div id="games_list">
+            <!-- Game entries will be populated here by static/games.js -->
+        </div>
     </div>
-    <div id="input_game_details" class="card modal">
-
-        <h1>Add New Game</h1>
-
-        <form method="post" action="{{ url_for('new_game') }}" id="new_game_form">
-            {% include "input_game_data.html" %}
-        </form>
-    </div>
-    <div id="games_list">
-        <!-- Game entries will be populated here by static/games.js -->
-    </div>
-    <div class="please_wait">
-        <i class="fa fa-rotate-right fa-spin"></i>
-        &nbsp; Please wait...
+    <div style="display: flex; justify-content: center;">
+        <div id="input_game_details" style="display: none;">
+            <h1>Add New Game</h1>
+    
+            <form method="post" action="{{ url_for('new_game') }}">
+                {% include "input_game_data.html" %}
+            </form>
+        </div>
+        <div class="please_wait">
+            <i class="fa fa-rotate-right fa-spin"></i>
+            &nbsp; Please wait...
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -24,7 +24,7 @@ document.getElementById("refresh_games_button").addEventListener("click", () => 
 const new_game_button = document.getElementById('add_new_game_button');
 
 new_game_button.addEventListener('click', () => {
+    document.getElementById('games_list_container').style.display = 'none';
     document.getElementById('input_game_details').style.display = 'block';
     document.getElementById('date_input').valueAsDate = new Date();
-    console.log("New game form displayed");
 });
