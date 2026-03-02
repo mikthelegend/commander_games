@@ -58,3 +58,19 @@ function generateGameCard(game) {
 
     return card;
 }
+
+// Fetches the image of a card from scryfall, and assigns it to the element with id=destination_id
+function loadScryfallImage(card_name, destination_id) {
+    card_name = card_name.split("/")[0];
+    fetch(`https://api.scryfall.com/cards/named?exact=${card_name.split(" ").join("+")}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("Scryfall data:", data);
+            if (data.image_uris && data.image_uris.normal) {
+                document.getElementById(destination_id).src = data.image_uris.normal;
+                document.getElementById(destination_id).style.display = "block";
+            } else {
+                document.getElementById(destination_id).style.display = "none";
+            }
+        })
+}

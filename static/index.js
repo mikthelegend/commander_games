@@ -42,54 +42,10 @@ fetch('/records')
         document.getElementById('lowest_all_time_elo').innerHTML += data.lowest_ever.elo_entry.elo.toFixed(0);
         document.getElementById('lowest_all_time_elo_when').innerHTML += `${data.lowest_ever.elo_entry.date} (Game ID: ${data.lowest_ever.elo_entry.game_id})`;
 
-        fetch(`https://api.scryfall.com/cards/named?exact=${data.highest_current.deck.split(" ").join("+")}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log("Scryfall data:", data);
-                if (data.image_uris && data.image_uris.normal) {
-                    document.getElementById("highest_current_elo_deck_image").src = data.image_uris.normal;
-                    document.getElementById("highest_current_elo_deck_image").style.display = "block";
-                } else {
-                    document.getElementById("highest_current_elo_deck_image").style.display = "none";
-                }
-            })
-
-        fetch(`https://api.scryfall.com/cards/named?exact=${data.lowest_current.deck.split(" ").join("+")}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log("Scryfall data:", data);
-                if (data.image_uris && data.image_uris.normal) {
-                    document.getElementById("lowest_current_elo_deck_image").src = data.image_uris.normal;
-                    document.getElementById("lowest_current_elo_deck_image").style.display = "block";
-                } else {
-                    document.getElementById("lowest_current_elo_deck_image").style.display = "none";
-                }
-            })
-
-        fetch(`https://api.scryfall.com/cards/named?exact=${data.highest_ever.deck.split(" ").join("+")}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log("Scryfall data:", data);
-                if (data.image_uris && data.image_uris.normal) {
-                    document.getElementById("highest_all_time_elo_deck_image").src = data.image_uris.normal;
-                    document.getElementById("highest_all_time_elo_deck_image").style.display = "block";
-                } else {
-                    document.getElementById("highest_all_time_elo_deck_image").style.display = "none";
-                }
-            })
-
-        fetch(`https://api.scryfall.com/cards/named?exact=${data.lowest_ever.deck.split(" ").join("+")}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log("Scryfall data:", data);
-                if (data.image_uris && data.image_uris.normal) {
-                    document.getElementById("lowest_all_time_elo_deck_image").src = data.image_uris.normal;
-                    document.getElementById("lowest_all_time_elo_deck_image").style.display = "block";
-                } else {
-                    document.getElementById("lowest_all_time_deck_image").style.display = "none";
-                }
-            })
-
+        loadScryfallImage(data.highest_current.deck, "highest_current_elo_deck_image")
+        loadScryfallImage(data.lowest_current.deck, "lowest_current_elo_deck_image")
+        loadScryfallImage(data.highest_ever.deck, "highest_all_time_elo_deck_image")
+        loadScryfallImage(data.lowest_ever.deck, "lowest_all_time_elo_deck_image")
     });
 
 document.addEventListener('DOMContentLoaded', function() {

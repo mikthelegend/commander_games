@@ -64,18 +64,8 @@ fetch("/get_all_decks")
                             row.appendChild(cell5);
                             opponents_table.appendChild(row);
                         }
-
-                        fetch(`https://api.scryfall.com/cards/named?exact=${deck.name.split(" ").join("+")}`)
-                            .then(response => response.json())
-                            .then(data => {
-                                console.log("Scryfall data:", data);
-                                if (data.image_uris && data.image_uris.normal) {
-                                    document.getElementById("deck_image").src = data.image_uris.normal;
-                                    document.getElementById("deck_image").style.display = "block";
-                                } else {
-                                    document.getElementById("deck_image").style.display = "none";
-                                }
-                            })
+                        
+                        loadScryfallImage(deck.name, "deck_image")
                     });
             });
 
