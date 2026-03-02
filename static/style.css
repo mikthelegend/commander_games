@@ -101,6 +101,7 @@ table {
   background-color: white;
   /*border-radius: 20px;*/
   overflow: hidden;
+  width: 100%;
 }
 
 th, td {

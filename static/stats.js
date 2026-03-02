@@ -20,9 +20,12 @@ document.getElementById("analyse_button").onclick = function() {
             document.getElementById("analysis_results_container").style.display = "block";
 
             document.getElementById("deck_name").innerHTML = data.deck_name;
+            document.getElementById("deck_bracket").innerHTML = data.bracket;
+            document.getElementById("deck_owner").innerHTML = data.owner;
+            document.getElementById("deck_tags").innerHTML = data.tags;
             document.getElementById("deck_games_played").innerHTML = data.games_played;
             document.getElementById("deck_last_played").innerHTML = `${data.last_played.date} (Game ID: ${data.last_played.game_id})`;
-            document.getElementById("deck_win_rate").innerHTML = (data.win_rate * 100).toFixed(2) + "%" + " (" + data.win_rate * data.games_played + " wins)";
+            document.getElementById("deck_win_rate").innerHTML = (data.win_rate * 100).toFixed(2) + "%" + " (" + Math.floor(data.win_rate * data.games_played) + " wins)";
             document.getElementById("deck_elo").innerHTML = data.current_elo.toFixed(0);
             document.getElementById("deck_avrg_opponent_elo").innerHTML = data.avrg_opponent_elo.toFixed(2);
             document.getElementById("deck_avrg_opponent_elo_when_win").innerHTML = data.avrg_opponent_elo_when_win.toFixed(2);
@@ -30,6 +33,9 @@ document.getElementById("analyse_button").onclick = function() {
 
             // Populate Mobile Data
             document.getElementById("deck_name_mobile").innerHTML = data.deck_name;
+            document.getElementById("deck_bracket_mobile").innerHTML = data.bracket;
+            document.getElementById("deck_owner_mobile").innerHTML = data.owner;
+            document.getElementById("deck_tags_mobile").innerHTML = data.tags;
             document.getElementById("deck_games_played_mobile").innerHTML = data.games_played;
             document.getElementById("deck_last_played_mobile").innerHTML = `${data.last_played.date} (Game ID: ${data.last_played.game_id})`;
             document.getElementById("deck_win_rate_mobile").innerHTML = (data.win_rate * 100).toFixed(2) + "%" + " (" + data.win_rate * data.games_played + " wins)";

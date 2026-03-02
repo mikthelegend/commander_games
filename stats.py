@@ -76,6 +76,9 @@ def analyze_deck(deck_name):
 
     stats = {
         "deck_name": deck_name,
+        "bracket": deck_object.bracket,
+        "owner": deck_object.owner,
+        "tags": deck_object.tags,
         "games_played": games_played,
         "last_played": {"date": deck_object.get_current_elo_entry()["date"], "game_id": deck_object.get_current_elo_entry()["game_id"]},
         "win_rate": wins / games_played if games_played > 0 else 0,
