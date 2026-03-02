@@ -22,31 +22,82 @@
     </div>
 </div>
 
-<div class="block" id="records_widescreen">
+<div>
     <h2>ELO Records</h2>
-    <table id="elo_records">
-        <tr>
-            <th>Record</th>
-            <th>Deck Name</th>
-            <th>Elo</th>
-            <th>When</th>
-        </tr>
-    </table>
-</div>
-
-<div class="card" id="records_mobile">
-    <div class="card_header">
-        <h2>ELO Records</h2>
-    </div>
-    <div class="card_body">
-        <!-- Change to "Current Lowest ELO" and "All Time Lowest ELO"? -->
-        <strong>Current Highest ELO:</strong><p id="highest_current_elo"></p>
-        <strong>Current Lowest ELO:</strong><p id="lowest_current_elo"></p>
-        <strong>All Time Highest ELO:</strong><p id="highest_elo_ever"></p>
-        <strong>All Time Lowest ELO:</strong><p id="lowest_elo_ever"></p>
-    </div>
-    <div class="card_footer">
-        <br>
+    <p>Check out the current and all-time ELO records for our decks:</p>
+    <div id="elo_records_container">
+        <div class="card">
+            <div class="card_header">
+                <div>Highest Current Elo</div>
+            </div>
+            <div class="card_body">
+                <div class="flex-row">
+                    <img id="highest_current_elo_deck_image" src="" alt="Deck Image">
+                    <div class="record_details">
+                        <p id="highest_current_elo_deck_name"><strong>Deck: </strong></p>
+                        <p id="highest_current_elo"><strong>ELO: </strong></p>
+                        <p id="highest_current_elo_when"><strong>When: </strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="card_footer">
+                <br>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card_header">
+                <div>Lowest Current Elo</div>
+            </div>
+            <div class="card_body">
+                <div class="flex-row">
+                    <img id="lowest_current_elo_deck_image" src="" alt="Deck Image">
+                    <div class="record_details">
+                        <p id="lowest_current_elo_deck_name"><strong>Deck: </strong></p>
+                        <p id="lowest_current_elo"><strong>ELO: </strong></p>
+                        <p id="lowest_current_elo_when"><strong>When: </strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="card_footer">
+                <br>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card_header">
+                <div>Highest All-Time Elo</div>
+            </div>
+            <div class="card_body">
+                <div class="flex-row">
+                    <img id="highest_all_time_elo_deck_image" src="" alt="Deck Image">
+                    <div class="record_details">
+                        <p id="highest_all_time_elo_deck_name"><strong>Deck: </strong></p>
+                        <p id="highest_all_time_elo"><strong>ELO: </strong></p>
+                        <p id="highest_all_time_elo_when"><strong>When: </strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="card_footer">
+                <br>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card_header">
+                <div>Lowest All-Time Elo</div>
+            </div>
+            <div class="card_body">
+                <div class="flex-row">
+                    <img id="lowest_all_time_elo_deck_image" src="" alt="Deck Image">
+                    <div class="record_details">
+                        <p id="lowest_all_time_elo_deck_name"><strong>Deck: </strong></p>
+                        <p id="lowest_all_time_elo"><strong>ELO: </strong></p>
+                        <p id="lowest_all_time_elo_when"><strong>When: </strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="card_footer">
+                <br>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

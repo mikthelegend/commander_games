@@ -349,7 +349,7 @@ input[type=number] {
   display: flex;
   justify-content: center;
   gap: 10px;
-  align-items: center;
+  align-items: top;
   flex-wrap: wrap;
 }
 
@@ -390,6 +390,16 @@ input[type=number] {
   padding: 20px;
 }
 
+.card_body img {
+  max-width: 50%;
+  height: fit-content;
+  border-radius: 8px;
+}
+
+.record_details {
+  max-width: 40%;
+}
+
 .card_footer {
   padding: 20px;
   background-color: var(--bar);
@@ -414,7 +424,7 @@ input[type=number] {
 }
 */
 
-#random_games_container {
+#random_games_container, #elo_records_container {
   display: flex;
   justify-content: center;
   margin: 30px 0;
@@ -490,7 +500,7 @@ textarea {
     margin: 0 0 40px 0;
     padding: 0;
   }
-  #random_games_container {
+  #random_games_container, #elo_records_container {
     flex-direction: column; 
     align-items: center; 
     gap: 26px;
