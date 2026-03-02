@@ -83,6 +83,8 @@ def analyze_deck(deck_name):
         "last_played": {"date": deck_object.get_current_elo_entry()["date"], "game_id": deck_object.get_current_elo_entry()["game_id"]},
         "win_rate": wins / games_played if games_played > 0 else 0,
         "current_elo": deck_object.get_current_elo(),
+        "highest_elo": sorted(deck_object.elo_history, key=lambda x:x["elo"], reverse=True)[0],
+        "lowest_elo": sorted(deck_object.elo_history, key=lambda x:x["elo"])[0],
         "avrg_opponent_elo": avrg_opponent_elo / num_opponents if num_opponents > 0 else 0,
         "avrg_opponent_elo_when_win": avrg_opponent_elo_when_win / num_opponents_when_win if num_opponents_when_win > 0 else 0,
         "avrg_opponent_elo_when_lose": avrg_opponent_elo_when_lose / num_opponents_when_lose if num_opponents_when_lose > 0 else 0,

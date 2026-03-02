@@ -27,10 +27,12 @@ fetch("/get_all_decks")
                                     <p><strong>Games Played:</strong> ${data.games_played}</p>
                                     <p><strong>Last Played:</strong> ${data.last_played.date} (Game ID: ${data.last_played.game_id})</p>
                                     <p><strong>Win Rate:</strong> ${(data.win_rate * 100).toFixed(2)}% (${Math.floor(data.win_rate * data.games_played)} wins)</p>
-                                    <p><strong>ELO:</strong> ${data.current_elo.toFixed(0)}</p>
+                                    <p><strong>Current ELO:</strong> ${data.current_elo.toFixed(0)}</p>
+                                    <p><strong>Highest ELO:</strong> ${data.highest_elo.elo.toFixed(0)} (${data.highest_elo.date} - ID: ${data.highest_elo.game_id})</p>
+                                    <p><strong>Lowest ELO:</strong> ${data.lowest_elo.elo.toFixed(0)} (${data.lowest_elo.date} - ID: ${data.lowest_elo.game_id})</p>
                                     <p><strong>Average Opponent ELO:</strong> ${data.avrg_opponent_elo.toFixed(2)}</p>
-                                    <p><strong>Average Opponent ELO When Win:</strong> ${data.avrg_opponent_elo_when_win.toFixed(2)}</p>
-                                    <p><strong>Average Opponent ELO When Lose:</strong> ${data.avrg_opponent_elo_when_lose.toFixed(2)}</p>
+                                    <p><strong>Average Opponent ELO | Win:</strong> ${data.avrg_opponent_elo_when_win.toFixed(2)}</p>
+                                    <p><strong>Average Opponent ELO | Lose:</strong> ${data.avrg_opponent_elo_when_lose.toFixed(2)}</p>
                                 </div>
                             </div>
                             <table id="deck_opponents"></table>
