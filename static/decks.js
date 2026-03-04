@@ -14,9 +14,12 @@ fetch("/get_all_decks")
                     .then(data => {
                         const deckDetails = document.getElementById("deck_details");
                         deckDetails.style.display = "block";
-                        if (window.innerWidth <= 800) document.getElementById("decks_page_list").style.display = "none"
+                        if (window.innerWidth <= 800) document.getElementById("decks_page_list_container").style.display = "none"
                         deckDetails.innerHTML = `
-                            <button id="back_to_list_button">Back</button>
+                            <button id="back_to_list_button">
+                                <i class="fa fa-arrow-left"></i>
+                                Back
+                            </button>
                             <div class="flex-row">
                                 <img id="deck_image" src="" alt="Deck Image">
                                 <div>
@@ -40,7 +43,7 @@ fetch("/get_all_decks")
 
                         document.getElementById("back_to_list_button").addEventListener("click", () => {
                             deckDetails.style.display = "none";
-                            document.getElementById("decks_page_list").style.display = "block";
+                            document.getElementById("decks_page_list_container").style.display = "flex";
                         });
                         
                         const opponents_table = document.getElementById("deck_opponents");

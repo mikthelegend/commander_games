@@ -115,6 +115,7 @@ th {
   Otherwise, they move the rest of the page when hovered.
 */
 button {
+  display: flex;
   padding: 12px 24px;
   margin-bottom: 6px;
   border-radius: 10px;
@@ -127,6 +128,7 @@ button {
   width: max-content;
   min-width: 130px;
   align-self: center;
+  gap: 8px;
 }
 
 button:hover {
@@ -134,11 +136,6 @@ button:hover {
   box-shadow: 0 0;
   margin-top: 6px;
   margin-bottom: 0;
-}
-
-i {
-  margin-left: -2px;
-  margin-right: 8px;
 }
 
 select {
@@ -187,8 +184,8 @@ input {
   padding: 10px;
   border: 3px solid var(--border);
   border-radius: 8px;
-  background-color: var(--main);
-  flex-grow: 1;
+  background-color: #fff;
+  /* flex-grow: 1; */
   font-size: 1.2em;
   margin-bottom: 10px;
 }
@@ -206,21 +203,35 @@ input[type=number] {
   appearance: textfield;
 }
 
-.bubble {
+.deck_item {
+  display: flex;
   padding: 10px;
-  border: 3px solid var(--border);
-  border-radius: 8px;
-  background-color: var(--main);
+  border-bottom: 3px solid var(--border);
+  /* border-radius: 8px; */
+  background-color: #fff;
   flex-grow: 1;
   font-size: 1.2em;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
+  cursor: pointer;
+  align-self: normal;
+}
+
+.deck_item:nth-child(even) { background: var(--main); }
+
+.deck_item:last-child { 
+  border: 0;
+}
+
+#decks_page_list_container {
+  padding-right: 20px;
+  align-items: normal;
+  gap: 10px;
 }
 
 #decks_page_list {
-  height: 100%;
-  padding-right: 20px;
+  border: 3px solid var(--border);
+  border-radius: 8px;
   overflow: scroll;
-  flex-grow: 1;
 }
 
 #decks_page {
@@ -230,7 +241,6 @@ input[type=number] {
 
 #deck_details {
   width: 650px;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -239,7 +249,6 @@ input[type=number] {
   border-radius: 8px;
   background-color: var(--main);
   font-size: 1em;
-  margin-bottom: 10px;
   overflow: scroll;
 }
 
@@ -381,6 +390,7 @@ input[type=number] {
   /* flex-grow: 1; */
   /* max-width: 400px; */
   width: 400px;
+  cursor: pointer;
 }
 
 .card_header {
@@ -516,11 +526,15 @@ textarea {
   button {flex-grow: 1;}
   .site-footer {padding-left: 20px;}
   .top-nav .logo {font-size: 1.6em;}
-  #decks_page_list {height: calc(100vh - 200px);}
+  #decks_page {flex-direction: column;}
+  #decks_page_list_container { 
+    height: calc(100vh - 200px);
+    padding: 0;
+  }
   #deck_details {
-    display: none;
     padding: 0;
     border: none;
+    width: auto;
   }
   #back_to_list_button {
     display: block;

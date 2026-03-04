@@ -16,25 +16,29 @@ function generateGameCard(game) {
                     ${date.toLocaleDateString("en-AU", options)}
                 </div>
                 <div>
-                    <b><i>#</i></b>${game.game_id}
+                    <b><i>#</i></b>
+                    ${game.game_id} &ensp;
+                    <i class="fa fa-pencil"></i>
                 </div>
             </div>
             <div class="card_body">
                 <div>
                     <div>
-                        <i class="fa fa-arrow-up"></i><b>Winner:</b> &nbsp;
+                        <i class="fa fa-arrow-up"></i>
+                        <b>Winner:</b>
                     </div>
                     <div class="deck_with_elo">
                         <span>${game.winner.pilot}</span> - &nbsp;
                         <span>${game.winner.deck_name}</span>
                         <span class="elo_change">
-                            <i class="fa-solid fa-angles-up"></i>${(game.winner.elo_after - game.winner.elo_before < 0 ? "" : "+") + Math.round(game.winner.elo_after - game.winner.elo_before)}
+                            ${(game.winner.elo_after - game.winner.elo_before < 0 ? "" : "+") + Math.round(game.winner.elo_after - game.winner.elo_before)}
                         </span>
                     </div>
                 </div>
                 <div>
                     <div>
-                        <i class="fa fa-arrow-down"></i><b>Losers:</b> &nbsp;
+                        <i class="fa fa-arrow-down"></i>
+                        <b>Losers:</b>
                     </div>
                     ${game.losers.map(loser => `
                         <div class="deck_with_elo">

@@ -2,12 +2,14 @@
 
 {% block content %}
 <div id="decks_page">
-    <div id="decks_page_list">
-        <input type="text" id="deck_search_input" class="deck_item" placeholder="Search decks...">
-        <!-- A list of all the decks will be populated here -->
+    <div id="decks_page_list_container" class="flex-col">
+        <input type="text" id="deck_search_input" placeholder="Search decks...">
+        <div id="decks_page_list" class="flex-col">
+            <!-- A list of all the decks will be populated here -->
+        </div>
     </div>
     <div id="deck_details">
-        No Deck Selected
+        Select a deck for details
         <!-- Deck details will be populated here when a deck is selected -->
     </div>
 </div>
