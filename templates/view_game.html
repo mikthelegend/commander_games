@@ -7,9 +7,18 @@
     <div id="view_game_block">
         <h1>Game Details</h1>
         <div class="flex-row">
-            <button id="back_to_games_button">Back</button>
-            <button id="edit_game_button">Edit Game</button>
-            <button id="delete_game_button" class="danger">Delete Game</button>
+            <button id="back_to_games_button">
+                <i class="fa fa-arrow-left"></i>
+                Back
+            </button>
+            <button id="edit_game_button">
+                <i class="fa fa-pencil"></i>
+                Edit Game
+            </button>
+            <button id="delete_game_button" class="danger">
+                <i class="fa fa-trash"></i>
+                Delete Game
+            </button>
         </div>
         <p id="game_id"><strong>Game ID:</strong> {{ game.game_id }}</p>
         <p><strong>Date:</strong> {{ game.date }}</p>
